@@ -2,15 +2,15 @@ package com.b2.bookingingorkutek.model;
 
 public enum ApplicationUserPermission {
 
-    BOOKING_READ_ALL(""),
-    BOOKING_READ_SELF(""),
-    BOOKING_CREATE(""),
-    BOOKING_UPDATE(""),
-    BOOKING_DELETE(""),
-    GOR_READ(""),
-    GOR_CREATE(""),
-    GOR_UPDATE(""),
-    GOR_DELETE(""),
+    BOOKING_READ_ALL("booking:read-all"),
+    BOOKING_READ_SELF("booking:read-self"),
+    BOOKING_CREATE("booking:create"),
+    BOOKING_UPDATE("booking:update"),
+    BOOKING_DELETE("booking:delete"),
+    GOR_READ("gor:read"),
+    GOR_CREATE("gor:create"),
+    GOR_UPDATE("gor:update"),
+    GOR_DELETE("gor:delete"),
     REGISTER("auth:register"),
     LOGIN("auth:login");
 
