@@ -8,6 +8,7 @@ import com.b2.bookingingorkutek.dto.RegisterRequest;
 import com.b2.bookingingorkutek.exceptions.UserAlreadyExistException;
 import com.b2.bookingingorkutek.model.User;
 import com.b2.bookingingorkutek.repository.UserRepository;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 
 @Service
+@Data
 @RequiredArgsConstructor
 public class AuthenticationService {
 
