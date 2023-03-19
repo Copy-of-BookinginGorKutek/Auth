@@ -7,7 +7,6 @@ import com.b2.bookingingorkutek.exceptions.UserAlreadyExistException;
 import com.b2.bookingingorkutek.repository.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -19,20 +18,20 @@ import static org.junit.jupiter.api.Assertions.*;
 class AuthenticationServiceImplTest {
 
     @Mock
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
     @Mock
-    PasswordEncoder passwordEncoder;
+    private PasswordEncoder passwordEncoder;
 
     @Mock
-    JwtService jwtService;
+    private JwtService jwtService;
 
     @Mock
-    AuthenticationManager authenticationManager;
+    private AuthenticationManager authenticationManager;
 
     @Mock
-    AuthenticationService authenticationService =
-            new AuthenticationService(userRepository, passwordEncoder, jwtService, authenticationManager);
+    AuthenticationService authenticationService;// =
+     //       new AuthenticationService(userRepository, passwordEncoder, jwtService, authenticationManager);
 
     @Test
     void testAuthServiceRegisterShouldAddToRepository() throws Exception {
