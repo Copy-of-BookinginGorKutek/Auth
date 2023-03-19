@@ -1,4 +1,6 @@
 package com.b2.bookingingorkutek.controller;
+import com.b2.bookingingorkutek.dto.AuthenticationRequest;
+import com.b2.bookingingorkutek.dto.RegisterRequest;
 import com.b2.bookingingorkutek.model.User;
 import com.b2.bookingingorkutek.service.AuthenticationService;
 import com.b2.bookingingorkutek.service.JwtService;
@@ -33,6 +35,7 @@ class AuthenticationControllerTest {
     private JwtService jwtService;
 
     private User user;
+    private RegisterRequest registerRequest;
 
     @BeforeEach
     void init() {
@@ -40,6 +43,11 @@ class AuthenticationControllerTest {
         user.setEmail("test@email.com");
         user.setPassword("test1234");
         user.setRole("USER");
+        registerRequest = new RegisterRequest();
+        registerRequest.setEmail(user.getEmail());
+        registerRequest.setPassword(user.getPassword());
+        registerRequest.setRole(user.getRole());
+        authenticationService.register(registerRequest);
     }
     @Test
     @WithAnonymousUser
@@ -56,6 +64,17 @@ class AuthenticationControllerTest {
                 .andDo(print())
                 .andExpect(status().isOk());
     }
+
+    @Test
+    void testPostLoginSuccesfull() throws Exception {
+        AuthenticationRequest req = new AuthenticationRequest();
+        req.setEmail("test@email.com");
+        req.setPassword("test1234");
+        mvc.perform(post("/login-body").param(req.getEmail(), req.getPassword()))
+                .andExpect(status().isOk());
+    }
+
+
 
 
 
