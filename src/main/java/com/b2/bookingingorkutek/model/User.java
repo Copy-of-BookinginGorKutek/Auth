@@ -1,5 +1,6 @@
 package com.b2.bookingingorkutek.model;
 
+import com.b2.bookingingorkutek.model.ApplicationUserRole;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
