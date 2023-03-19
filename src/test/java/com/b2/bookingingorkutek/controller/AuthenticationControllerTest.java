@@ -1,9 +1,11 @@
 package com.b2.bookingingorkutek.controller;
-import com.b2.bookingingorkutek.dto.AuthenticationRequest;
 import com.b2.bookingingorkutek.dto.RegisterRequest;
 import com.b2.bookingingorkutek.model.User;
 import com.b2.bookingingorkutek.service.AuthenticationService;
 import com.b2.bookingingorkutek.service.JwtService;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -11,18 +13,17 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.security.test.context.support.WithAnonymousUser;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import org.springframework.security.test.context.support.WithMockUser;
 
 
 @WebMvcTest(controllers = AuthenticationController.class)
-@AutoConfigureMockMvc
+@AutoConfigureMockMvc(addFilters = false)
 class AuthenticationControllerTest {
 
     @Autowired
@@ -38,40 +39,75 @@ class AuthenticationControllerTest {
     private RegisterRequest registerRequest;
 
     @BeforeEach
-    void init() {
-        user  = new User();
-        user.setEmail("test@email.com");
-        user.setPassword("test1234");
-        user.setRole("USER");
-        registerRequest = new RegisterRequest();
-        registerRequest.setEmail(user.getEmail());
-        registerRequest.setPassword(user.getPassword());
-        registerRequest.setRole(user.getRole());
-        authenticationService.register(registerRequest);
+    void setup() {
+        user = User.builder()
+                .firstname("Cicak")
+                .lastname("Bin Kadal")
+                .email("cbkadal@email.com")
+                .password("thisistheway")
+                .role("USER")
+                .build();
     }
     @Test
-    @WithAnonymousUser
     void testRegisterPageShouldBeOK() throws Exception {
-        mvc.perform(get("/register"))
+        mvc.perform(post("/auth/register")
+                    .param("firstname", user.getFirstname())
+                    .param("lastname", user.getLastname())
+                    .param("email", user.getEmail())
+                    .param("password", user.getPassword())
+                    .param("role", user.getRole()))
                 .andDo(print())
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andExpect(handler().methodName("register"));
     }
 
     @Test
-    @WithAnonymousUser
     void testLoginPageShouldBeOK() throws Exception {
-        mvc.perform(get("/login"))
+        mvc.perform(post("/auth/login")
+                    .param("email", user.getEmail())
+                    .param("password", user.getPassword()))
                 .andDo(print())
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andExpect(handler().methodName("login"));
     }
 
     @Test
-    void testPostLoginSuccesfull() throws Exception {
-        AuthenticationRequest req = new AuthenticationRequest();
-        req.setEmail("test@email.com");
-        req.setPassword("test1234");
-        mvc.perform(post("/login-body").param(req.getEmail(), req.getPassword()))
-                .andExpect(status().isOk());
+    void testPostRegisterSuccessful() throws Exception {
+        RegisterRequest req = new RegisterRequest();
+        req.setFirstname(user.getFirstname());
+        req.setLastname(user.getLastname());
+        req.setEmail(user.getEmail());
+        req.setPassword(user.getPassword());
+        req.setRole(user.getRole());
+
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
+        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
+        String requestJson =ow.writeValueAsString(req);
+
+        mvc.perform(post("/auth/register-body")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(requestJson))
+                .andExpect(status().isOk())
+                .andExpect(handler().methodName("registerBody"));
+    }
+
+    @Test
+    void testPostLoginSuccessful() throws Exception {
+        RegisterRequest req = new RegisterRequest();
+        req.setEmail(user.getEmail());
+        req.setPassword(user.getPassword());
+
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
+        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
+        String requestJson =ow.writeValueAsString(req);
+
+        mvc.perform(post("/auth/login-body")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(requestJson))
+                .andExpect(status().isOk())
+                .andExpect(handler().methodName("loginBody"));
     }
 
 
