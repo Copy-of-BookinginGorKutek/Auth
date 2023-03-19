@@ -1,5 +1,6 @@
 package com.b2.bookingingorkutek.service;
 
+import com.b2.bookingingorkutek.dto.AuthenticationRequest;
 import com.b2.bookingingorkutek.dto.AuthenticationResponse;
 import com.b2.bookingingorkutek.dto.RegisterRequest;
 import com.b2.bookingingorkutek.exceptions.UserAlreadyExistException;
@@ -62,6 +63,18 @@ class AuthenticationServiceImplTest {
                 new RegisterRequest("aaa", "bbb", "test@email.com", "abab", "admin");
         authenticationService.register(request);
         assertThrows(UserAlreadyExistException.class, () -> authenticationService.register(request));
+    }
+
+    @Test
+    void testAuthenticateMethod() throws Exception {
+        RegisterRequest request =
+                new RegisterRequest("aaa", "bbb", "test@email.com", "abab", "admin");
+        AuthenticationResponse firstRes = authenticationService.register(request);
+        AuthenticationRequest req = new AuthenticationRequest("test@email.com", "abab");
+        AuthenticationResponse secRes = authenticationService.authenticate(req);
+        String resToken = firstRes.getToken();
+        String reqToken = secRes.getToken();
+        assertEquals(resToken, reqToken);
     }
 
 }
