@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -16,7 +16,7 @@
                                 <a class="m-auto"><img src="logo.png" class="img-fluid" 
                                     style="width: 150px; height: auto;"></a>
                                     <div class="h4 mb-4">Registration Form</div>
-                                        <form method="POST" action="">
+                                        <form method="POST" th:action="@{/auth/register}">
                                             <div class="form-row">
                                                 <div class="col">
                                                   <input required type="text" class="form-control" placeholder="First Name" name="firstname">
@@ -33,9 +33,9 @@
                                             </div>
                                             <div class="form-floating my-3">
                                                 <div class="form-group">
-                                                    <select required class="form-control" id="sel1">
-                                                        <option selected value="user">User</option>
-                                                        <option value="admin">Admin</option>
+                                                    <select required class="form-control" id="sel1" name="role">
+                                                        <option selected value="USER">User</option>
+                                                        <option value="ADMIN">Admin</option>
                                                     </select>
                                                   </div> 
                                             </div>
