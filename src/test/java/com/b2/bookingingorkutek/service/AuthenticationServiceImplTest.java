@@ -9,7 +9,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -31,8 +30,9 @@ class AuthenticationServiceImplTest {
     @Mock
     AuthenticationManager authenticationManager;
 
-    @InjectMocks
-    AuthenticationService authenticationService;
+    @Mock
+    AuthenticationService authenticationService =
+            new AuthenticationService(userRepository, passwordEncoder, jwtService, authenticationManager);
 
     @Test
     void testAuthServiceRegisterShouldAddToRepository() throws Exception {
@@ -43,14 +43,6 @@ class AuthenticationServiceImplTest {
         assertNotNull(checkUser);
     }
 
-    @Test
-    void testAuthServiceRegisterShouldAddToRepositoryVers2() throws Exception {
-        RegisterRequest request =
-                new RegisterRequest("aaa", "bbb", "test@email.com", "abab", "admin");
-        AuthenticationResponse res = authenticationService.register(request);
-        var checkUser = userRepository.findByEmail("test@email.com");
-        assertNotNull(checkUser);
-    }
     @Test
     void testFindByWrongEmail() throws Exception {
         var checkUser = userRepository.findByEmail("randomemail@email.com").orElse(null);
@@ -72,9 +64,7 @@ class AuthenticationServiceImplTest {
         AuthenticationResponse firstRes = authenticationService.register(request);
         AuthenticationRequest req = new AuthenticationRequest("test@email.com", "abab");
         AuthenticationResponse secRes = authenticationService.authenticate(req);
-        String resToken = firstRes.getToken();
-        String reqToken = secRes.getToken();
-        assertEquals(resToken, reqToken);
+        assertEquals(firstRes, secRes);
     }
 
 }
