@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -16,7 +16,7 @@
                                 <a class="m-auto"><img src="logo.png" class="img-fluid" 
                                     style="width: 150px; height: auto;"></a>
                                     <div class="h4 mb-4">Login Form</div>
-                                        <form method="POST" action="/auth/login">
+                                        <form th:action="@{/auth/login}" method="POST" content-type="application/json">
                                             <div class="form-floating">
                                                 <input required type="email" name="email" placeholder="Email" class="form-control my-3">
                                             </div>
