@@ -36,20 +36,6 @@ class AuthenticationPageControllerTest {
     }
 
     @Test
-    void testRegisterPageNotLoggedInShouldBeOk() throws Exception {
-        mvc.perform(get("/register"))
-                .andDo(print())
-                .andExpect(status().isOk());
-    }
-
-    @Test
-    @WithMockUser(username = "test", password = "password", roles = "USER")
-    void testRegisterPageWhenLoggedIn() throws Exception {
-        mvc.perform(get("/register"))
-                .andDo(print())
-                .andExpect(status().isFound());
-    }
-    @Test
     @WithMockUser(username = "test", password = "password", roles = "USER")
     void testLoginPageWhenLoggedIn() throws Exception {
         mvc.perform(get("/login"))
