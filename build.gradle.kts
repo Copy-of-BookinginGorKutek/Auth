@@ -41,3 +41,11 @@ dependencies {
 tasks.withType<Test> {
     useJUnitPlatform()
 }
+
+sonarqube{
+    properties{
+        property("sonar.projectKey", "AdvProg_reguler-2023_mahasiswa_kelas-b_2106750231-Jaycent-Gunawan-Ongris-_kelompok-b2_auth_AYbzMI2FSUPdlmizh9d7")
+        property("sonar.host.url", "https://sonarqube.cs.ui.ac.id")
+        property("sonar.login", "authb2adpro")
+    }
+}
