@@ -3,6 +3,7 @@ plugins {
     id("org.springframework.boot") version "3.0.4"
     id("io.spring.dependency-management") version "1.1.0"
     id("org.sonarqube") version "3.0"
+    id("jacoco")
 }
 
 group = "com.b2"
@@ -46,6 +47,6 @@ sonarqube{
     properties{
         property("sonar.projectKey", "AdvProg_reguler-2023_mahasiswa_kelas-b_2106750231-Jaycent-Gunawan-Ongris-_kelompok-b2_auth_AYbzMI2FSUPdlmizh9d7")
         property("sonar.host.url", "https://sonarqube.cs.ui.ac.id")
-        property("sonar.login", "authb2adpro")
+        property("sonar.login", "f726ad20740716890ba788f261c78f242c54611d")
     }
 }
