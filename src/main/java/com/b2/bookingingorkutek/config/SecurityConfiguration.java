@@ -29,6 +29,8 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests()
                 .requestMatchers("/auth/**", "/auth-page/**")
                 .permitAll()
+                .requestMatchers("/css/**", "/js/**", "/img/**")
+                .permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()
@@ -36,7 +38,9 @@ public class SecurityConfiguration {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authenticationProvider(authenticationProvider)
-                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
+                .logout()
+                .deleteCookies("token");
 
         return http.build();
     }

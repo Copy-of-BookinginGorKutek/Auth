@@ -5,6 +5,7 @@ package com.b2.bookingingorkutek.service;
 import com.b2.bookingingorkutek.dto.AuthenticationRequest;
 import com.b2.bookingingorkutek.dto.AuthenticationResponse;
 import com.b2.bookingingorkutek.dto.RegisterRequest;
+import com.b2.bookingingorkutek.dto.RegisterResponse;
 import com.b2.bookingingorkutek.exceptions.UserAlreadyExistException;
 import com.b2.bookingingorkutek.model.User;
 import com.b2.bookingingorkutek.repository.UserRepository;
@@ -29,7 +30,7 @@ public class AuthenticationService {
 
     private final AuthenticationManager authenticationManager;
 
-    public AuthenticationResponse register(RegisterRequest request) {
+    public RegisterResponse register(RegisterRequest request) {
         var checkUser = userRepository.findByEmail(request.getEmail()).orElse(null);
 
         if(checkUser != null) {
@@ -46,8 +47,7 @@ public class AuthenticationService {
                 .build();
 
         userRepository.save(user);
-        var jwtToken = jwtService.generateToken(user);
-        return AuthenticationResponse.builder().token(jwtToken).build();
+        return RegisterResponse.builder().message("success").build();
     }
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
