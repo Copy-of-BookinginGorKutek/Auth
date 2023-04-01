@@ -25,7 +25,7 @@ function register(){
         window.alert(xhttp.response);
         var response = JSON.parse(xhttp.response);
         if(response.message === "success"){
-            // lom bisa handle apa apa
+            window.history.pushState({},document.title, "/auth-page/login");
         }
     }
 
