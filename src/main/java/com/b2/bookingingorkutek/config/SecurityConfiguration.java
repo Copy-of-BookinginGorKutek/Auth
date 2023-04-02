@@ -40,6 +40,7 @@ public class SecurityConfiguration {
                 .authenticationProvider(authenticationProvider)
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
                 .logout()
+                .logoutSuccessUrl("/auth-page/login")
                 .deleteCookies("token");
 
         return http.build();
