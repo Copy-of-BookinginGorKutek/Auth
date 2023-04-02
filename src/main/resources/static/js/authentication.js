@@ -22,10 +22,11 @@ function register(){
     xhttp.setRequestHeader("Content-Type", "application/json");
 
     xhttp.onload = () => {
-        window.alert(xhttp.response);
         var response = JSON.parse(xhttp.response);
         if(response.message === "success"){
             window.history.pushState({},document.title, "/auth-page/login");
+        }else{
+            window.alert("Failed to register");
         }
     }
 
