@@ -48,28 +48,6 @@ class AuthenticationControllerTest {
                 .role("USER")
                 .build();
     }
-    @Test
-    void testRegisterPageShouldBeOK() throws Exception {
-        mvc.perform(post("/auth/register")
-                    .param("firstname", user.getFirstname())
-                    .param("lastname", user.getLastname())
-                    .param("email", user.getEmail())
-                    .param("password", user.getPassword())
-                    .param("role", user.getRole()))
-                .andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(handler().methodName("register"));
-    }
-
-    @Test
-    void testLoginPageShouldBeOK() throws Exception {
-        mvc.perform(post("/auth/login")
-                    .param("email", user.getEmail())
-                    .param("password", user.getPassword()))
-                .andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(handler().methodName("login"));
-    }
 
     @Test
     void testPostRegisterSuccessful() throws Exception {
@@ -85,11 +63,11 @@ class AuthenticationControllerTest {
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
         String requestJson =ow.writeValueAsString(req);
 
-        mvc.perform(post("/auth/register-body")
+        mvc.perform(post("/auth/register")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(requestJson))
                 .andExpect(status().isOk())
-                .andExpect(handler().methodName("registerBody"));
+                .andExpect(handler().methodName("register"));
     }
 
     @Test
@@ -103,15 +81,11 @@ class AuthenticationControllerTest {
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
         String requestJson =ow.writeValueAsString(req);
 
-        mvc.perform(post("/auth/login-body")
+        mvc.perform(post("/auth/login")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(requestJson))
                 .andExpect(status().isOk())
-                .andExpect(handler().methodName("loginBody"));
+                .andExpect(handler().methodName("login"));
     }
-
-
-
-
 
 }
