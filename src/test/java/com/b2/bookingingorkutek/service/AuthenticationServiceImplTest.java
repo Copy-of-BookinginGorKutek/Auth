@@ -30,7 +30,6 @@ class AuthenticationServiceImplTest {
     private ApplicationContext applicationContext;
     @Mock
     private UserRepository userRepository;
-
     @Mock
     private PasswordEncoder passwordEncoder;
 
@@ -62,7 +61,7 @@ class AuthenticationServiceImplTest {
     @Test
     void testAuthServiceRegisterTwiceShouldThrowsError() throws Exception {
         RegisterRequest request =
-                new RegisterRequest("aaa", "bbb", "test@email.com", "abab", "admin");
+                new RegisterRequest("aaa", "bbb", "test1@email.com", "abab", "admin");
         AuthenticationService authenticationService = (AuthenticationService) applicationContext.getBean("authenticationService");
         authenticationService.register(request);
         assertThrows(UserAlreadyExistException.class, () -> authenticationService.register(request));
@@ -71,13 +70,13 @@ class AuthenticationServiceImplTest {
     @Test
     void testAuthenticateMethod() throws Exception {
         RegisterRequest request =
-                new RegisterRequest("aaa", "bbb", "test@email.com", "abab", "admin");
+                new RegisterRequest("aaa", "bbb", "test2@email.com", "abab", "admin");
         AuthenticationService authenticationService = (AuthenticationService) applicationContext.getBean("authenticationService");
         authenticationService.register(request);
-        AuthenticationRequest req = new AuthenticationRequest("test@email.com", "abab");
+        AuthenticationRequest req = new AuthenticationRequest("test2@email.com", "abab");
         AuthenticationResponse secRes = authenticationService.authenticate(req);
         String email = authenticationService.getJwtService().extractUsername(secRes.getToken());
-        assertEquals("test@email.com", email);
+        assertEquals("test2@email.com", email);
     }
 
 }
