@@ -18,6 +18,7 @@ stages:
   - test
   - publish
   - deploy
+  - sonarqube-check
 
 
 
@@ -100,3 +101,16 @@ Deploy:
       docker run --name $CONTAINER_NAME -d -p 80:8080 $REGISTRY_USER/$IMAGE_NAME:$IMAGE_TAG"
   only:
     - master
+
+
+
+sonarqube-check:
+  stage: sonarqube-check
+  only:
+    - main
+    - staging
+  variables:
+    SONAR_HOST_URL: 'https://sonarqube.cs.ui.ac.id/'
+    GIT_DEPTH: 0
+  script: gradle sonarqube -Dsonar.qualitygate.wait=true
+  allow_failure: true
