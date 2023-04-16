@@ -16,7 +16,7 @@
                         <a class="m-auto"><img th:src="@{/img/logo.png}" class="img-fluid"
                                                style="width: 150px; height: auto;"></a>
                         <div class="h4 mb-4">Registration Form</div>
-                        <form>
+                        <form method = "POST" id="registerForm">
                             <div class="form-row">
                                 <div class="col">
                                     <input required type="text" class="form-control" placeholder="First Name" name="firstname" id="firstname">
@@ -39,7 +39,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <input class="btn btn-primary mx-auto m-1" type="submit" value="Register" th:onclick="register()">
+                            <input class="btn btn-primary mx-auto m-1" type="submit" value="Register">
                         </form>
                         <p class="text-align-center mt-2">Have an account? <a href="/auth-page/login" class="text-decoration-none">Log in</a> instead</p>
                     </div>

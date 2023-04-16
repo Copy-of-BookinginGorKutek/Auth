@@ -5,10 +5,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/dum")
-public class Dum {
-    @GetMapping("/test")
-    public String test(){
-        return "test";
-    }
+@RequestMapping("reservation-page")
+public class ReservationPageController {
+    @GetMapping("/create")
+    public String createReservation(){ return "create_reservation"; }
 }
