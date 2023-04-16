@@ -18,14 +18,14 @@
                         <a class="m-auto"><img th:src="@{/img/logo.png}" class="img-fluid"
                                                style="width: 150px; height: auto;"></a>
                         <div class="h4 mb-4">Login Form</div>
-                        <form>
+                        <form method = "POST" id="loginForm">
                             <div class="form-floating">
                                 <input required type="email" name="email" placeholder="Email" class="form-control my-3" id="email">
                             </div>
                             <div class="form-floating">
                                 <input required type="password" name="password" placeholder="Password" class="form-control my-3" id="password">
                             </div>
-                            <input class="btn btn-primary mx-auto m-1" type="submit" value="Login" th:onclick="login()">
+                            <input class="btn btn-primary mx-auto m-1" type="submit" value="Login">
                         </form>
                         <p class="text-align-center mt-2">No account? <a href="/auth-page/register" class="text-decoration-none">Create a new one</a></p>
                     </div>

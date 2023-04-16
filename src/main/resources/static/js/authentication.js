@@ -1,22 +1,24 @@
 // Login User
-function login(){
+$(document).on('submit', '#loginForm', function(e) {
+    e.preventDefault();
     const xhttp = new XMLHttpRequest();
     xhttp.open("POST", "/auth/login", false);
     xhttp.setRequestHeader("Content-Type", "application/json");
 
     xhttp.onload = () => {
         var response = JSON.parse(xhttp.response);
-        document.cookie = "token="+response.token+"; path=/";
+        document.cookie = "token=" + response.token + "; path=/";
     }
 
     xhttp.send(JSON.stringify({
         "email": document.getElementById("email").value,
-        "password":document.getElementById("password").value
+        "password": document.getElementById("password").value
     }));
-}
+})
 
 // Register User
-function register(){
+$(document).on('submit', '#registerForm', function(e) {
+    e.preventDefault();
     const xhttp = new XMLHttpRequest();
     xhttp.open("POST", "/auth/register", false);
     xhttp.setRequestHeader("Content-Type", "application/json");
@@ -24,7 +26,7 @@ function register(){
     xhttp.onload = () => {
         var response = JSON.parse(xhttp.response);
         if(response.message === "success"){
-            window.history.pushState({},document.title, "/auth-page/login");
+            window.location.replace("/auth-page/login");
         }else{
             window.alert("Failed to register");
         }
@@ -42,7 +44,7 @@ function register(){
         "password": password,
         "role":role
     }));
-}
+})
 
 
 
