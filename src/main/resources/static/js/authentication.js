@@ -7,7 +7,11 @@ $(document).on('submit', '#loginForm', function(e) {
 
     xhttp.onload = () => {
         var response = JSON.parse(xhttp.response);
-        document.cookie = "token=" + response.token + "; path=/";
+        if(xhttp.status !== 200){
+            window.alert(response.message);
+        }else {
+            document.cookie = "token=" + response.token + "; path=/; secure";
+        }
     }
 
     xhttp.send(JSON.stringify({
@@ -28,7 +32,7 @@ $(document).on('submit', '#registerForm', function(e) {
         if(response.message === "success"){
             window.location.replace("/auth-page/login");
         }else{
-            window.alert("Failed to register");
+            window.alert(response.message);
         }
     }
 
