@@ -32,10 +32,11 @@
     }
     form {
       display: flex;
-      flex-direction: row;
-      justify-content: space-between;
+      flex-direction: column;
+      justify-content: center;
       align-items: center;
-      margin-bottom: 20px;
+      margin: 0 auto;
+      max-width: 600px;
     }
 
     label {
@@ -47,21 +48,25 @@
       border: 1px solid #ccc;
       border-radius: 4px;
       font-size: 16px;
-      width: 25%;
+      width: 50%;
     }
 
-    input[type="submit"] {
+    button[type="submit"], input[type="submit"] {
       padding: 8px 16px;
       border: none;
       border-radius: 4px;
-      background-color: #0096FF;
+      background-color: #4CAF50;
       color: white;
       font-size: 16px;
       cursor: pointer;
     }
 
-    input[type="submit"]:hover {
-      background-color: #0000FF;
+    button[type="submit"]:hover, input[type="submit"]:hover {
+      background-color: #3e8e41;
+    }
+    .proceed{
+      display: flex;
+      justify-content: center;
     }
   </style>
 </head>
@@ -94,17 +99,23 @@
     <td id="email"></td>
   </tr>
 </table>
-<p>Your reservation has been confirmed. Please arrive at least 15 minutes before the reservation time. Thank you for choosing our badminton court!</p>
+<br>
 <form>
-  <label for="link">Payment Proof:</label>
+  <div class="coupon" style="flex-direction: row;">
+    <label for="coupon">Coupon ID:</label>
+    <br>
+    <input type="text" id="coupon" name="coupon" placeholder="Enter the Coupon ID">
+    <input type="submit" value="Submit">
+  </div>
   <br>
+  <label for="link">Payment Proof:</label>
   <input type="text" id="link" name="link" placeholder="Send us your payment proof!">
   <br>
-  <label for="coupon">Coupon ID:</label>
-  <br>
-  <input type="text" id="coupon" name="coupon" placeholder="Enter the Coupon ID">
-  <input type="submit" value="Submit">
 </form>
+<div class="proceed">
+  <button type="submit">Proceed!</button>
+</div>
+<p>Your reservation has been confirmed. Please arrive at least 15 minutes before the reservation time. Thank you for choosing our badminton court!</p>
 <script type="text/javascript" src="/js/reservation_self.js"></script>
 </body>
 </html>
