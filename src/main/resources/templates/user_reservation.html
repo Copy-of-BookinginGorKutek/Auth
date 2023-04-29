@@ -30,6 +30,39 @@
     th {
       background-color: #f2f2f2;
     }
+    form {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    label {
+      margin-right: 10px;
+    }
+
+    input[type="text"] {
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 16px;
+      width: 25%;
+    }
+
+    input[type="submit"] {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 4px;
+      background-color: #0096FF;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #0000FF;
+    }
   </style>
 </head>
 <body>
@@ -62,6 +95,16 @@
   </tr>
 </table>
 <p>Your reservation has been confirmed. Please arrive at least 15 minutes before the reservation time. Thank you for choosing our badminton court!</p>
+<form>
+  <label for="link">Payment Proof:</label>
+  <br>
+  <input type="text" id="link" name="link" placeholder="Send us your payment proof!">
+  <br>
+  <label for="coupon">Coupon ID:</label>
+  <br>
+  <input type="text" id="coupon" name="coupon" placeholder="Enter the Coupon ID">
+  <input type="submit" value="Submit">
+</form>
 <script type="text/javascript" src="/js/reservation_self.js"></script>
 </body>
 </html>
