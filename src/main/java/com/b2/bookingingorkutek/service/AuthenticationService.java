@@ -9,10 +9,12 @@ import com.b2.bookingingorkutek.dto.RegisterResponse;
 import com.b2.bookingingorkutek.exceptions.UserAlreadyExistException;
 import com.b2.bookingingorkutek.model.User;
 import com.b2.bookingingorkutek.repository.UserRepository;
+import io.jsonwebtoken.JwtException;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -59,6 +61,7 @@ public class AuthenticationService {
                         request.getPassword()
                 )
         );
+
         var user = userRepository.findByEmail(request.getEmail()).orElseThrow();
         Map<String, Object> extraClaims = new HashMap<>();
         extraClaims.put("role", user.getRole());

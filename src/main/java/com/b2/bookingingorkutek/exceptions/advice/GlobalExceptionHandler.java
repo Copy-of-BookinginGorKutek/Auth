@@ -5,6 +5,7 @@ import com.b2.bookingingorkutek.exceptions.UserAlreadyExistException;
 import io.jsonwebtoken.JwtException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -20,7 +21,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<Object> userExist() {
         HttpStatus badRequest = HttpStatus.BAD_REQUEST;
         var baseException = new ErrorTemplate(
-                "User with the same email already exist",
+                "Email sudah terdaftar",
                 badRequest,
                 ZonedDateTime.now(ZoneId.of("Z"))
         );
@@ -29,11 +30,11 @@ public class GlobalExceptionHandler {
     }
 
 
-    @ExceptionHandler(value = {JwtException.class, AuthenticationException.class, UsernameNotFoundException.class})
+    @ExceptionHandler(value = {JwtException.class, AuthenticationException.class, UsernameNotFoundException.class, BadCredentialsException.class})
     public ResponseEntity<Object> credentialsError(Exception exception) {
         HttpStatus badRequest = HttpStatus.UNAUTHORIZED;
         var baseException = new ErrorTemplate(
-                exception.getMessage(),
+                "Email atau password salah",
                 badRequest,
                 ZonedDateTime.now(ZoneId.of("Z"))
         );

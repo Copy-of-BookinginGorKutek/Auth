@@ -11,5 +11,5 @@ ENV JDBC_DATABASE_USERNAME ${JDBC_DATABASE_USERNAME}
 
 WORKDIR /app
 COPY ./build/libs/BookinginGORKutek-0.0.1-SNAPSHOT.jar /app
-EXPOSE 8080
+EXPOSE 8081
 CMD ["java","-jar","BookinginGORKutek-0.0.1-SNAPSHOT.jar"]
