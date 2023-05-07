@@ -3,12 +3,12 @@ $(document).on('submit', '#create_reservation', function(e){
     e.preventDefault();
     window.alert("halo");
     const xhttp = new XMLHttpRequest();
-    xhttp.open("POST", "http://localhost:8080/reservation/create", false);
+    xhttp.open("POST", "/reservation-page/create", false);
     xhttp.setRequestHeader("Content-Type", "application/json");
-    xhttp.setRequestHeader("Authorization", "Bearer " + getCookie("token"))
+    // xhttp.setRequestHeader("Authorization", "Bearer " + getCookie("token"))
     xhttp.onload = () => {
         if(xhttp.status === 200){
-            window.alert("berhasil membuat reservasi");
+            window.alert("Berhasil membuat reservasi");
         }else{
             window.alert("Gagal membuat reservasi");
         }
@@ -30,18 +30,18 @@ $(document).on('submit', '#create_reservation', function(e){
     }));
 })
 
-function getCookie(cname) {
-    let name = cname + "=";
-    let decodedCookie = decodeURIComponent(document.cookie);
-    let ca = decodedCookie.split(';');
-    for(let i = 0; i <ca.length; i++) {
-        let c = ca[i];
-        if (c.indexOf(name) == 0) {
-            return c.substring(name.length, c.length);
-        }
-    }
-    return "";
-}
+// function getCookie(cname) {
+//     let name = cname + "=";
+//     let decodedCookie = decodeURIComponent(document.cookie);
+//     let ca = decodedCookie.split(';');
+//     for(let i = 0; i <ca.length; i++) {
+//         let c = ca[i];
+//         if (c.indexOf(name) == 0) {
+//             return c.substring(name.length, c.length);
+//         }
+//     }
+//     return "";
+// }
 
 
 
