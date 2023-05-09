@@ -1,9 +1,10 @@
 package com.b2.bookingingorkutek.controller;
 
-import jakarta.servlet.http.HttpServletResponse;
+import com.b2.bookingingorkutek.dto.ModelUserDto;
+import com.b2.bookingingorkutek.service.AuthorizationService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.*;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
@@ -13,29 +14,17 @@ import org.springframework.web.client.RestTemplate;
 @RequiredArgsConstructor
 public class ReservationPageController {
     private final RestTemplate restTemplate;
+    private final AuthorizationService authorizationService;
+
     @GetMapping("/create")
-    public String createReservation(@CookieValue(name = "token", defaultValue = "") String token){
-        HttpHeaders requestHeaders = new HttpHeaders();
-        requestHeaders.setBearerAuth(token);
-        requestHeaders.setContentType(MediaType.APPLICATION_JSON);
-        ResponseEntity<String> responseEntity = restTemplate.postForEntity("http://auth/authorization/get-role", new HttpEntity<>(requestHeaders), String.class);
-        String role = responseEntity.getBody();
-        assert role != null;
-        if(role.equals("Anonymous") || role.equals("Admin"))
+    public String createReservation(@CookieValue(name = "token", defaultValue = "") String token, Model model){
+        ModelUserDto user = authorizationService.requestCurrentUser(token);
+        if(user == null || !user.getRole().equals("USER"))
             return "redirect:/auth-page/login";
+        model.addAttribute("user", user);
         return "create_reservation";
     }
 
-    @PostMapping(path="/create", produces = "application/json")
-    @ResponseBody
-    public void createReservationPost(@RequestBody String json,
-                                        @CookieValue(name = "token", defaultValue = "") String token,
-                                        HttpServletResponse response){
-        HttpHeaders requestHeaders = new HttpHeaders();
-        requestHeaders.setBearerAuth(token);
-        requestHeaders.setContentType(MediaType.APPLICATION_JSON);
-        HttpEntity<String> http = new HttpEntity<>(json, requestHeaders);
-        restTemplate.postForEntity("http://reservation/reservation/create", http, Object.class);
-    }
+
 
 }
