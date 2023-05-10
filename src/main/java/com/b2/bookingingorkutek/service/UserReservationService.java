@@ -22,6 +22,7 @@ public class UserReservationService {
             ResponseEntity<Reservasi[]> responseEntity = restTemplate.exchange(url, HttpMethod.GET, httpEntity, Reservasi[].class);
             return List.of(Objects.requireNonNull(responseEntity.getBody()));
         }catch(Exception e){
+            e.printStackTrace();
             return List.of();
         }
     }

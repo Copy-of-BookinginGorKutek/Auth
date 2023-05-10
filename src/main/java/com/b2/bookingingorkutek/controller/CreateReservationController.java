@@ -27,6 +27,7 @@ public class CreateReservationController {
         try{
             return restTemplate.postForEntity("http://reservation/reservation/create", http, Object.class);
         }catch(HttpServerErrorException | HttpClientErrorException e){
+            e.printStackTrace();
             return ResponseEntity.status(e.getStatusCode()).body(e.getResponseBodyAsString());
         }
     }
