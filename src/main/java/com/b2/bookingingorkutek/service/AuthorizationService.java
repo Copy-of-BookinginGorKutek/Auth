@@ -47,6 +47,7 @@ public class AuthorizationService {
                     .exchange("http://auth/authorization/user-checking", HttpMethod.GET, httpEntity, ModelUserDto.class);
             return responseEntity.getBody();
         } catch(Exception e){
+            e.printStackTrace();
             return null;
         }
     }
