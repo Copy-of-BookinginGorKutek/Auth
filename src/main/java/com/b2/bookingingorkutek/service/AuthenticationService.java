@@ -66,7 +66,7 @@ public class AuthenticationService {
         Map<String, Object> extraClaims = new HashMap<>();
         extraClaims.put("role", user.getRole());
         var jwtToken = jwtService.generateToken(extraClaims, user);
-        return AuthenticationResponse.builder().token(jwtToken).build();
+        return AuthenticationResponse.builder().token(jwtToken).role(user.getRole()).build();
     }
 
 }

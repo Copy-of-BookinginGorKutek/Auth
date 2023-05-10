@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <title>Badminton Court Reservation Confirmation</title>
   <meta charset="UTF-8">
@@ -30,38 +30,97 @@
     th {
       background-color: #f2f2f2;
     }
+    form {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin: 0 auto;
+      max-width: 600px;
+    }
+
+    label {
+      margin-right: 10px;
+    }
+
+    input[type="text"] {
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 16px;
+      width: 50%;
+    }
+
+    button[type="submit"], input[type="submit"] {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 4px;
+      background-color: #4CAF50;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button[type="submit"]:hover, input[type="submit"]:hover {
+      background-color: #3e8e41;
+    }
+    .proceed{
+      display: flex;
+      justify-content: center;
+    }
   </style>
 </head>
 <body>
-<h1>Badminton Court Reservation Confirmation</h1>
+<h1>Detail Booking Lapangan</h1>
 <table>
   <tr>
-    <th>Reservation ID:</th>
-    <td id="reservation-id"></td>
+    <th>Id Booking:</th>
+    <td><span th:text="${reservasi.getId()}"></span></td>
   </tr>
   <tr>
-    <th>Reservation Date:</th>
-    <td id="reservation-date"></td>
+    <th>Waktu Mulai:</th>
+    <td><span th:text="${#temporals.format(reservasi.getWaktuMulai(), 'dd-MM-yyyy HH:mm')}"></span></td>
   </tr>
   <tr>
   <tr>
-    <th>Reservation Time:</th>
-    <td id="reservation-time"></td>
+    <th>Waktu Selesai:</th>
+  <td><span th:text="${#temporals.format(reservasi.getWaktuBerakhir(), 'dd-MM-yyyy HH:mm')}"></span></td>
   </tr>
   <tr>
-    <th>Badminton Court:</th>
-    <td id="badminton-court"></td>
+    <th>Nomor Lapangan</th>
+    <td><span th:text="${reservasi.getIdLapangan()}"></span></td>
   </tr>
   <tr>
-    <th>Name:</th>
-    <td id="name"></td>
+    <th>Total Harga:</th>
+    <td><span th:text="${reservasi.getHarga()}"></span></td>
+  </tr>
+  <tr>
+    <th>Status Pembayaran Booking:</th>
+    <td><span th:text="${reservasi.getStatusPembayaran().toLowerCase().replaceAll('_', ' ')}"></span></td>
   </tr>
   <tr>
     <th>Email:</th>
-    <td id="email"></td>
+    <td id="email"><span th:text="${reservasi.getEmailUser()}"></span></td>
   </tr>
+
 </table>
+<br>
+<form>
+  <div class="coupon" style="flex-direction: row;">
+    <label for="coupon">Coupon ID:</label>
+    <br>
+    <input type="text" id="coupon" name="coupon" placeholder="Enter the Coupon ID">
+    <input type="submit" value="Submit">
+  </div>
+  <br>
+  <label for="link">Payment Proof:</label>
+  <input type="text" id="link" name="link" placeholder="Send us your payment proof!">
+  <br>
+</form>
+<div class="proceed">
+  <button type="submit">Proceed!</button>
+</div>
 <p>Your reservation has been confirmed. Please arrive at least 15 minutes before the reservation time. Thank you for choosing our badminton court!</p>
-<script type="text/javascript" src="/js/reservation_self.js"></script>
+<!--<script type="text/javascript" src="/js/reservation_self.js"></script>-->
 </body>
 </html>

@@ -21,12 +21,9 @@
                         <div class="h2 mb-4">Booking Lapangan</div>
                         <form method = "POST" id="create_reservation">
                             <!-- Data Diri -->
-                            <div class="h5 mb-2"> Isi Data Diri </div>
+                            <div class="h5 mb-2"> Data Diri </div>
                             <div class="form-floating">
-                                <input required type="email" name="email" placeholder="Email" class="form-control my-3" id="email">
-                            </div>
-                            <div class="form-floating">
-                                <input required type="text" class="form-control" placeholder="Nama" name="name" id="name">
+                                <input required type="email" name="email" placeholder="Email" class="form-control my-3" id="email" th:value="${user.getEmailUser()}" readonly>
                             </div>
 
                             <!-- Pilih Waktu Main -->
