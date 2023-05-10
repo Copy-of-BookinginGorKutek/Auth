@@ -1,16 +1,15 @@
 // create reservation
 $(document).on('submit', '#create_reservation', function(e){
     e.preventDefault();
-    window.alert("halo");
     const xhttp = new XMLHttpRequest();
-    xhttp.open("POST", "/reservation-page/create", false);
+    xhttp.open("POST", "/create-reservation/create", false);
     xhttp.setRequestHeader("Content-Type", "application/json");
-    // xhttp.setRequestHeader("Authorization", "Bearer " + getCookie("token"))
     xhttp.onload = () => {
         if(xhttp.status === 200){
             window.alert("Berhasil membuat reservasi");
+            window.location.replace("/user-reservation-page/get-self");
         }else{
-            window.alert("Gagal membuat reservasi");
+            window.alert((JSON.parse(xhttp.response).message));
         }
     }
     var tanggalMain = document.getElementById("tanggal_main").value;

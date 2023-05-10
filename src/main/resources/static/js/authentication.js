@@ -10,7 +10,7 @@ $(document).on('submit', '#loginForm', function(e) {
         if(xhttp.status !== 200){
             window.alert(response.message);
         }else {
-            document.cookie = "token=" + response.token + "; path=/; secure";
+            document.cookie = "token=" + response.token + "; path=/";
         }
     }
 
