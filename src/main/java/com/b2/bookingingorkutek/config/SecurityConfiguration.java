@@ -26,6 +26,8 @@ public class SecurityConfiguration {
         http
                 .csrf()
                 .disable()
+                .cors()
+                .and()
                 .authorizeHttpRequests()
                 .requestMatchers("/auth/**", "/auth-page/**", "/reservation-page/**", "/authorization/**", "/user-reservation-page/**", "/create-reservation/**")
                 .permitAll()
