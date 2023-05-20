@@ -23,11 +23,11 @@
               <td> Waktu Mulai </td>
               <td> Waktu Selesai </td>
             </tr>
-            <tr th:each="reservasi: ${reservasiList}">
-              <td><span th:text="${reservasi.getId()}"></span></td>
-              <td><span th:text="${#temporals.format(reservasi.getWaktuMulai(), 'dd-MM-yyyy HH:mm')}"></span></td>
-              <td><span th:text="${#temporals.format(reservasi.getWaktuBerakhir(), 'dd-MM-yyyy HH:mm')}"></span></td>
-              <td><a th:href="@{|/user-reservation-page/get-self/${reservasi.getId()}|}"> <button class="btn-sm btn-primary">Bayar</button> </a>
+            <tr th:each="reservation: ${reservationList}">
+              <td><span th:text="${reservation.getId()}"></span></td>
+              <td><span th:text="${#temporals.format(reservation.getWaktuMulai(), 'dd-MM-yyyy HH:mm')}"></span></td>
+              <td><span th:text="${#temporals.format(reservation.getWaktuBerakhir(), 'dd-MM-yyyy HH:mm')}"></span></td>
+              <td><a th:href="@{|/user-reservation-page/get-self/${reservation.getId()}|}"> <button class="btn-sm btn-primary">Bayar</button> </a>
             </tr>
 
           </table>

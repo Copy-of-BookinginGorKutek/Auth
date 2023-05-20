@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Reservasi {
+public class Reservation {
     private Integer id;
     private String emailUser;
     private String statusPembayaran;
