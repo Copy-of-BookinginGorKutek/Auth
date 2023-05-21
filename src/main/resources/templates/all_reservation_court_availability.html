@@ -92,7 +92,7 @@
                     </thead>
                     <tr th:each="operasional: ${operasionalLapanganList}">
                         <td th:text="${operasional.getIdLapangan()}"></td>
-                        <td th:text="${operasional.getTanggalLibur()}"></td>
+                        <td th:text="${#dates.format(operasional.getTanggalLibur(), 'dd-MM-yyyy')}"></td>
                     </tr>
                 </table>
             </div>

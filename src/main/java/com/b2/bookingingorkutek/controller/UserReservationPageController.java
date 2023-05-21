@@ -68,7 +68,7 @@ public class UserReservationPageController {
         }
 
         CompletableFuture<List<Reservation>> reservationListAsync = CompletableFuture.supplyAsync(() -> {
-            String getReservationUrl = "http://localhost:8082/reservation/get-all";
+            String getReservationUrl = "http://34.142.212.224:60/reservation/get-all";
             HttpHeaders requestHeaders = new HttpHeaders();
             requestHeaders.setBearerAuth(token);
             requestHeaders.setContentType(MediaType.APPLICATION_JSON);
@@ -83,7 +83,7 @@ public class UserReservationPageController {
         });
 
         CompletableFuture<List<OperasionalLapangan>> operasionalLapanganListAsync = CompletableFuture.supplyAsync(() -> {
-            String getOperasionalUrl = "http://localhost:8082/gor/closed-lapangan";
+            String getOperasionalUrl = "http://34.142.212.224:60/gor/closed-lapangan";
             HttpHeaders requestHeaders = new HttpHeaders();
             requestHeaders.setBearerAuth(token);
             requestHeaders.setContentType(MediaType.APPLICATION_JSON);
@@ -122,7 +122,7 @@ public class UserReservationPageController {
         }
 
         CompletableFuture<List<Reservation>> reservationListAsync = CompletableFuture.supplyAsync(() -> {
-            String getReservationUrl = "http://localhost:8082/reservation/get-reservasi-by-date/" + date;
+            String getReservationUrl = "http://34.142.212.224:60/reservation/get-reservasi-by-date/" + date;
             HttpHeaders requestHeaders = new HttpHeaders();
             requestHeaders.setBearerAuth(token);
             requestHeaders.setContentType(MediaType.APPLICATION_JSON);
@@ -137,7 +137,7 @@ public class UserReservationPageController {
         });
 
         CompletableFuture<List<OperasionalLapangan>> operasionalLapanganListAsync = CompletableFuture.supplyAsync(() -> {
-            String getOperasionalUrl = "http://localhost:8082/gor/closed-lapangan/by-date/" + date;
+            String getOperasionalUrl = "http://34.142.212.224:60/gor/closed-lapangan/by-date/" + date;
             HttpHeaders requestHeaders = new HttpHeaders();
             requestHeaders.setBearerAuth(token);
             requestHeaders.setContentType(MediaType.APPLICATION_JSON);

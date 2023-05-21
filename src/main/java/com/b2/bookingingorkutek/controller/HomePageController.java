@@ -40,7 +40,7 @@ public class HomePageController {
         String localDateAsString = (localDate.getYear() + 1900) + "-" + formatDatePart(localDate.getMonth() + 1) + "-" + formatDatePart(localDate.getDate());
 
         CompletableFuture<List<Reservation>> reservationTodayListAsync = CompletableFuture.supplyAsync(() -> {
-            String getTodayReservationUrl = "http://localhost:8082/reservation/get-reservasi-by-date/" + localDateAsString;
+            String getTodayReservationUrl = "http://34.142.212.224:60/reservation/get-reservasi-by-date/" + localDateAsString;
             HttpHeaders requestHeaders = new HttpHeaders();
             requestHeaders.setBearerAuth(token);
             requestHeaders.setContentType(MediaType.APPLICATION_JSON);
@@ -55,7 +55,7 @@ public class HomePageController {
         });
 
         CompletableFuture<List<OperasionalLapangan>> operasionalLapanganTodayListAsync = CompletableFuture.supplyAsync(() -> {
-            String getTodayOperasionalUrl = "http://localhost:8082/gor/closed-lapangan/by-date/" + localDateAsString;
+            String getTodayOperasionalUrl = "http://34.142.212.224:60/gor/closed-lapangan/by-date/" + localDateAsString;
             HttpHeaders requestHeaders = new HttpHeaders();
             requestHeaders.setBearerAuth(token);
             requestHeaders.setContentType(MediaType.APPLICATION_JSON);

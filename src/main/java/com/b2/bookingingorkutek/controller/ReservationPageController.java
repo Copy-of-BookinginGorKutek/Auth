@@ -2,7 +2,6 @@ package com.b2.bookingingorkutek.controller;
 
 import com.b2.bookingingorkutek.dto.ModelUserDto;
 import com.b2.bookingingorkutek.model.kupon.Kupon;
-import com.b2.bookingingorkutek.model.lapangan.OperasionalLapangan;
 import com.b2.bookingingorkutek.model.reservation.Reservation;
 import com.b2.bookingingorkutek.service.AuthorizationService;
 import lombok.RequiredArgsConstructor;
@@ -12,7 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
-import java.sql.Array;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -33,7 +31,7 @@ public class ReservationPageController {
             return "redirect:/auth-page/login";
         model.addAttribute("user", user);
 
-        String getAllKuponUrl = "http://localhost:8082/gor/get-all-kupon";
+        String getAllKuponUrl = "http://34.142.212.224:60/gor/get-all-kupon";
         HttpHeaders requestHeaders = new HttpHeaders();
         requestHeaders.setBearerAuth(token);
         requestHeaders.setContentType(MediaType.APPLICATION_JSON);
@@ -58,7 +56,7 @@ public class ReservationPageController {
         ModelUserDto user = authorizationService.requestCurrentUser(token);
         if(user == null || !user.getRole().equals("USER"))
             return "redirect:/auth-page/login";
-        String getReservationUrl = "http://localhost:8082/reservation/get/" + id;
+        String getReservationUrl = "http://34.142.212.224:60/reservation/get/" + id;
         HttpHeaders requestHeaders = new HttpHeaders();
         requestHeaders.setBearerAuth(token);
         requestHeaders.setContentType(MediaType.APPLICATION_JSON);
