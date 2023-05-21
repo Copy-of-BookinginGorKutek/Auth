@@ -75,32 +75,32 @@
 <table>
   <tr>
     <th>Id Booking:</th>
-    <td><span th:text="${reservasi.getId()}"></span></td>
+    <td><span th:text="${reservation.getId()}"></span></td>
   </tr>
   <tr>
     <th>Waktu Mulai:</th>
-    <td><span th:text="${#temporals.format(reservasi.getWaktuMulai(), 'dd-MM-yyyy HH:mm')}"></span></td>
+    <td><span th:text="${#temporals.format(reservation.getWaktuMulai(), 'dd-MM-yyyy HH:mm')}"></span></td>
   </tr>
   <tr>
   <tr>
     <th>Waktu Selesai:</th>
-  <td><span th:text="${#temporals.format(reservasi.getWaktuBerakhir(), 'dd-MM-yyyy HH:mm')}"></span></td>
+  <td><span th:text="${#temporals.format(reservation.getWaktuBerakhir(), 'dd-MM-yyyy HH:mm')}"></span></td>
   </tr>
   <tr>
     <th>Nomor Lapangan</th>
-    <td><span th:text="${reservasi.getIdLapangan()}"></span></td>
+    <td><span th:text="${reservation.getIdLapangan()}"></span></td>
   </tr>
   <tr>
     <th>Total Harga:</th>
-    <td><span th:text="${reservasi.getHarga()}"></span></td>
+    <td><span th:text="${reservation.getHarga()}"></span></td>
   </tr>
   <tr>
     <th>Status Pembayaran Booking:</th>
-    <td><span th:text="${reservasi.getStatusPembayaran().toLowerCase().replaceAll('_', ' ')}"></span></td>
+    <td><span th:text="${reservation.getStatusPembayaran().toLowerCase().replaceAll('_', ' ')}"></span></td>
   </tr>
   <tr>
     <th>Email:</th>
-    <td id="email"><span th:text="${reservasi.getEmailUser()}"></span></td>
+    <td id="email"><span th:text="${reservation.getEmailUser()}"></span></td>
   </tr>
 
 </table>
