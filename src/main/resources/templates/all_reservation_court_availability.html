@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
+    <title>Court Availability</title>
+</head>
+<body style="background-color: #F6F1F1;">
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: white;">
+    <a class="navbar-brand" href="#">
+        <img th:src="@{/img/logo.png}" width="50" height="50" alt="">
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/home/">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/reservation-page/create">Create Reservation</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="/user-reservation-page/get-all-reservation">All Current Reservations and Court Availability</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/user-reservation-page/get-self">Reservation History</a>
+            </li>
+        </ul>
+    </div>
+    <div class="nb">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a href="/logout" type="button" class="btn btn-outline-danger my-2" id="logout">Log Out</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="text-center rounded shadow p-3 m-3" style="background-color: white;">
+    <div class="h2">Reservation and Court Availability</div>
+    <br>
+    <form id="filterByDate">
+        <div class="form-group">
+            <label for="datefilter" class="m-3">Filter by Date</label>
+            <input type="date" id="datefilter" class="m-3">
+            <input type="submit" class="btn btn-primary btn-sm">
+        </div>
+    </form>
+    <div class="d-flex flex-row m-3 rounded shadow">
+        <div class="p-3 flex-fill mr-1">
+            <div class="h3 text-center">Reservations</div>
+            <div th:if="${notEmptyReservation}">
+                <table class="table table-hover text-center">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Start Time</th>
+                        <th scope="col">End Time</th>
+                        <th scope="col">Court ID</th>
+                    </tr>
+                    </thead>
+                    <tr th:each="reservation: ${reservationList}">
+                        <th scope="row" th:text="${reservation.getId()}"></th>
+                        <td th:text="${#temporals.format(reservation.getWaktuMulai(), 'dd-MM-yyyy')}"></td>
+                        <td th:text="${#temporals.format(reservation.getWaktuMulai(), 'HH:mm')}"></td>
+                        <td th:text="${#temporals.format(reservation.getWaktuBerakhir(), 'HH:mm')}"></td>
+                        <td th:text="${reservation.getIdLapangan()}"></td>
+                    </tr>
+                </table>
+            </div>
+            <div th:unless="${notEmptyReservation}">
+                <div class="text-center">No Reservation</div>
+            </div>
+        </div>
+        <div class="p-3 flex-fill mr-1">
+            <div class="h3 text-center">Court Closed</div>
+            <div th:if="${noClosedLapangan}">
+                <div class="text-center">No Closed Court</div>
+            </div>
+            <div th:unless="${noClosedLapangan}">
+                <table class="table table-hover text-center">
+                    <thead>
+                    <tr>
+                        <th scope="col">Court ID</th>
+                        <th scope="col">Date</th>
+                    </tr>
+                    </thead>
+                    <tr th:each="operasional: ${operasionalLapanganList}">
+                        <td th:text="${operasional.getIdLapangan()}"></td>
+                        <td th:text="${operasional.getTanggalLibur()}"></td>
+                    </tr>
+                </table>
+            </div>
+    </div>
+</div>
+</div>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.min.js" integrity="sha384-heAjqF+bCxXpCWLa6Zhcp4fu20XoNIA98ecBC1YkdXhszjoejr5y9Q77hIrv8R9i" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+<script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+<script type="text/javascript">
+    $(document).on('submit', '#filterByDate', function(e){
+        e.preventDefault();
+        var dateFilter = new Date(document.getElementById("datefilter").value);
+        var dateFilterParsed = `${formatDatePart(dateFilter.getFullYear())}-${formatDatePart(dateFilter.getMonth()+1)}-${dateFilter.getDate()}`;
+        window.location.replace(`/user-reservation-page/get-all-reservation/${dateFilterParsed}`);
+    })
+
+    function formatDatePart(datePart){
+        if (datePart < 10){
+            return "0" + datePart.toString();
+        }
+        return datePart.toString();
+    }
+</script>
+</body>
+</html>

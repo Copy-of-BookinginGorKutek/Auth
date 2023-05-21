@@ -44,7 +44,7 @@ public class AuthorizationService {
         HttpEntity<Void> httpEntity = new HttpEntity<>(requestHeaders);
         try {
             ResponseEntity<ModelUserDto> responseEntity = restTemplate
-                    .exchange("http://34.142.212.224:100/authorization/user-checking", HttpMethod.GET, httpEntity, ModelUserDto.class);
+                    .exchange("http://localhost:8081/authorization/user-checking", HttpMethod.GET, httpEntity, ModelUserDto.class);
             return responseEntity.getBody();
         } catch(Exception e){
             e.printStackTrace();
