@@ -43,7 +43,7 @@ public class UserReservationPageController {
             return "redirect:/auth-page/login";
         }
         List<Reservation> userReservationList = userReservationService.getSelf(user.getEmailUser(), token);
-        model.addAttribute("reservasiList", userReservationList);
+        model.addAttribute("reservationList", userReservationList);
         model.addAttribute("user", user);
         return "user_reservation_list";
     }

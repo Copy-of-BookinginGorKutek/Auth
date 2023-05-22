@@ -32,22 +32,9 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(value = {JwtException.class, AuthenticationException.class, UsernameNotFoundException.class, BadCredentialsException.class})
     public ResponseEntity<Object> credentialsError(Exception exception) {
-        HttpStatus badRequest = HttpStatus.UNAUTHORIZED;
+        HttpStatus badRequest = HttpStatus.BAD_REQUEST;
         var baseException = new ErrorTemplate(
                 "Email atau password salah",
-                badRequest,
-                ZonedDateTime.now(ZoneId.of("Z"))
-        );
-
-        return new ResponseEntity<>(baseException, badRequest);
-    }
-
-
-    @ExceptionHandler(value = {Exception.class})
-    public ResponseEntity<Object> generalError(Exception exception) {
-        HttpStatus badRequest = HttpStatus.INTERNAL_SERVER_ERROR;
-        var baseException = new ErrorTemplate(
-                exception.getMessage(),
                 badRequest,
                 ZonedDateTime.now(ZoneId.of("Z"))
         );
