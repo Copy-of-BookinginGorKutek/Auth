@@ -4,41 +4,97 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-  <title>Daftar Booking</title>
-
+  <link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
+  <title>User Reservation List</title>
 </head>
-
 <body style="background-color: #F6F1F1;">
-<div class="container p-5 h-100">
-  <div class="row d-flex justify-content-center align-items-center h-100">
-    <div class="col-xl-7">
-      <div class="card bg-white text-dark shadow-lg border-1">
-        <div class="card-body p-5 text-center">
-          <a class="m-auto"><img th:src="@{/img/logo.png}" class="img-fluid"
-                                 style="width: 150px; height: auto;"></a>
-          <div class="h2 mb-4">List Booking <span th:text="${user.getFirstname()}"></span></div>
-          <table class="table">
-            <tr>
-              <td> Id Reservasi </td>
-              <td> Waktu Mulai </td>
-              <td> Waktu Selesai </td>
-            </tr>
-            <tr th:each="reservasi: ${reservasiList}">
-              <td><span th:text="${reservasi.getId()}"></span></td>
-              <td><span th:text="${#temporals.format(reservasi.getWaktuMulai(), 'dd-MM-yyyy HH:mm')}"></span></td>
-              <td><span th:text="${#temporals.format(reservasi.getWaktuBerakhir(), 'dd-MM-yyyy HH:mm')}"></span></td>
-              <td><a th:href="@{|/user-reservation-page/get-self/${reservasi.getId()}|}"> <button class="btn-sm btn-primary">Bayar</button> </a>
-            </tr>
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: white;">
+  <a class="navbar-brand" href="#">
+    <img th:src="@{/img/logo.png}" width="50" height="50" alt="">
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
 
-          </table>
-        </div>
-      </div>
-    </div>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="/home/">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/reservation-page/create">Create Reservation</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/user-reservation-page/get-all-reservation">All Current Reservations and Court Availability</a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="/user-reservation-page/get-self">Reservation History</a>
+      </li>
+    </ul>
+  </div>
+  <div class="nb">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a href="/logout" type="button" class="btn btn-outline-danger my-2" id="logout">Log Out</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+<div class="text-center rounded shadow p-3 m-3" style="background-color: white;">
+  <div class="h2">User Reservation List</div>
+  <div class="p text-secondary mb-2" th:text="${user.getEmailUser()}"></div>
+  <div th:if="${noReservation}">
+    <div class="p">No Reservation</div>
+  </div>
+  <div th:unless="${noReservation}">
+    <table class="table table-hover text-center">
+      <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Date</th>
+        <th scope="col">Start Time</th>
+        <th scope="col">End Time</th>
+        <th scope="col">Court ID</th>
+        <th scope="col">Price</th>
+        <th scope="col">Additional</th>
+        <th scope="col">Status</th>
+        <th scope="col">Operation</th>
+      </tr>
+      </thead>
+      <tr th:each="reservation: ${reservasiList}">
+        <th class="align-middle" scope="row" th:text="${reservation.getId()}"></th>
+        <td class="align-middle" th:text="${#temporals.format(reservation.getWaktuMulai(), 'dd-MM-yyyy')}"></td>
+        <td class="align-middle" th:text="${#temporals.format(reservation.getWaktuMulai(), 'HH:mm')}"></td>
+        <td class="align-middle" th:text="${#temporals.format(reservation.getWaktuBerakhir(), 'HH:mm')}"></td>
+        <td class="align-middle" th:text="${reservation.getIdLapangan()}"></td>
+        <td class="align-middle" th:text="${reservation.getHarga()}"></td>
+        <td class="align-middle">
+          <div class="container" th:each="tambahan: ${reservation.getTambahanList()}">
+            <div class="row">
+              <span class="col text-center"><span th:text="${#strings.capitalize(#strings.toLowerCase(#strings.replace(tambahan.getCategory(), '_', ' ')))} + ' '"><span> </span></span>(<span th:text="${tambahan.getQuantity()}"></span>)</span>
+            </div>
+          </div>
+        </td>
+        <td class="align-middle" th:switch="${reservation.getStatusPembayaran()}">
+          <span th:case="'MENUNGGU_PEMBAYARAN'" class="badge badge-primary">Menunggu Pembayaran</span>
+          <span th:case="'MENUNGGU_KONFIRMASI'" class="badge badge-info">Menunggu Konfirmasi</span>
+          <span th:case="'TERKONFIRMASI'" class="badge badge-success">Terkonfirmasi</span>
+          <span th:case="'BATAL'" class="badge badge-danger">Batal</span>
+        </td>
+        <td class="align-middle" th:switch="${reservation.getStatusPembayaran()}">
+          <a class="btn btn-outline-primary btn-sm" role="button" th:case="'MENUNGGU_PEMBAYARAN'" th:href="'/reservation-page/pay/' + ${reservation.getId()}">Pay</a>
+          <a class="btn btn-outline-primary btn-sm disabled" role="button" th:case="'MENUNGGU_KONFIRMASI'" href="#">Pay</a>
+          <a class="btn btn-outline-primary btn-sm disabled" role="button" th:case="'TERKONFIRMASI'" href="#">Pay</a>
+          <a class="btn btn-outline-primary btn-sm disabled" role="button" th:case="'BATAL'" href="#">Pay</a>
+        </td>
+      </tr>
+    </table>
   </div>
 </div>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-<script th:src="@{/js/authentication.js}"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.min.js" integrity="sha384-heAjqF+bCxXpCWLa6Zhcp4fu20XoNIA98ecBC1YkdXhszjoejr5y9Q77hIrv8R9i" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+<script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 </body>
 </html>

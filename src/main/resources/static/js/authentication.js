@@ -11,6 +11,7 @@ $(document).on('submit', '#loginForm', function(e) {
             window.alert(response.message);
         }else {
             document.cookie = "token=" + response.token + "; path=/";
+            window.location.replace("/home/")
         }
     }
 

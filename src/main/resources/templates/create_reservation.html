@@ -5,76 +5,166 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
-    <title>Booking Lapangan</title>
-
+    <title>Reservation</title>
 </head>
+<style>
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
 
+    input[type=number] {
+        -moz-appearance: textfield;
+    }
+</style>
 <body style="background-color: #F6F1F1;">
-<div class="container-xl p-5 h-100">
-    <div class="row d-flex justify-content-center align-items-center h-100">
-        <div class="col-xl-5">
-            <div class="card bg-white text-dark shadow-lg border-1">
-                <div class="card-body p-5 text-center">
-                    <div class = "create_reservation">
-                        <a class="m-auto"><img th:src="@{/img/logo.png}" class="img-fluid"
-                                               style="width: 150px; height: auto;"></a>
-                        <div class="h2 mb-4">Booking Lapangan</div>
-                        <form method = "POST" id="create_reservation">
-                            <!-- Data Diri -->
-                            <div class="h5 mb-2"> Data Diri </div>
-                            <div class="form-floating">
-                                <input required type="email" name="email" placeholder="Email" class="form-control my-3" id="email" th:value="${user.getEmailUser()}" readonly>
-                            </div>
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: white;">
+    <a class="navbar-brand" href="#">
+        <img th:src="@{/img/logo.png}" width="50" height="50" alt="">
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
 
-                            <!-- Pilih Waktu Main -->
-                            <div class="h5 mt-4 mb-3"> Pilih Waktu Main </div>
-                            <div class = "row align-items-center justify-content-center">
-                                <div class="h7 m-2"> Tanggal main </div>
-                                <input required type="text" class="datepicker" id="tanggal_main" placeholder="ex. 13-12-2023">
-                            </div>
-                            <div class = "row align-items-center justify-content-center">
-                                <div class="h7 m-2"> Jam mulai </div>
-                                <input required type="time" id="jam_main_mulai">
-                            </div>
-                            <div class = "row align-items-center justify-content-center">
-                                <div class="h7 m-2"> Jam berakhir </div>
-                                <input required type="time" id="jam_main_berakhir">
-                            </div>
-                            
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/home/">Home</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="/reservation-page/create">Create Reservation</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/user-reservation-page/get-all-reservation">All Current Reservations and Court Availability</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/user-reservation-page/get-self">Reservation History</a>
+            </li>
+        </ul>
+    </div>
+    <div class="nb">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a href="/logout" type="button" class="btn btn-outline-danger my-2" id="logout">Log Out</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="text-center rounded shadow p-3 m-3" style="background-color: white;">
+    <div class="card-body p-5 text-center">
+        <div class = "create_reservation">
+            <div class="h2 mb-4">Court Reservation</div>
+            <form method = "POST" id="create_reservation">
+                <!-- Data Diri -->
+                <div class="h5 mb-2">Email</div>
+                <div class="form-floating">
+                    <input required type="email" name="email" placeholder="Email" class="form-control my-3 text-center" id="email" th:value="${user.getEmailUser()}" readonly>
+                </div>
 
-                            <!-- Tambahan -->
-                            <div class="h5 mt-4 mb-2"> Tambahan </div>
-                            <div class="row d-flex justify-content-center align-items-center">
-                                <div class="card align-items-center p-3" style="width: 14rem;">
-                                    <img class="card-img-top" style= "width: 100px; height: 100px;" th:src="@{/img/create_reservation/botol.png}" alt="Card image cap">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Air Mineral</h5>
-                                        <h7>Jumlah</h7>
-                                        <input type="number" id="airQty" name="airQty" min=0 value=0>
-                                    </div>
-                                </div>
-                                <div class="card align-items-center p-3 m-2" style="width: 14rem;">
-                                    <img class="card-img-top" style= "width: 100px; height: 100px;" th:src="@{/img/create_reservation/raket.png}" alt="Card image cap">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Raket</h5>
-                                        <h7>Jumlah</h7>
-                                        <input type="number" id="raketQty" name="raketQty" min=0 value=0>
-                                    </div>
-                                </div>
-                                <div class="card align-items-center p-3" style="width: 14rem;">
-                                    <img class="card-img-top" style= "width: 100px; height: 100px;" th:src="@{/img/create_reservation/shuttlecock.png}" alt="Card image cap">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Shuttlecock</h5>
-                                        <h7>Jumlah</h7>
-                                        <input type="number" id="shuttlecockQty" name="shuttlecockQty" min=0 value=0>
-                                    </div>
-                                </div>
-                            </div>
-                            <input type="submit" class="btn btn-outline-dark mt-3" value="Pesan">
-                        </form>
+                <!-- Pilih Waktu Main -->
+                <div class="h5 mt-4 mb-3">Pick Your Date and Time</div>
+
+                <div class = "row align-items-center justify-content-center">
+                    <div class="h7 m-2">Date</div>
+                    <input required type="date" class="datepicker" id="tanggal_main" placeholder="ex. 13-12-2023">
+                </div>
+                <div class = "row align-items-center justify-content-center">
+                    <div class="h7 m-2">Start Time</div>
+                    <select class="form-select m-1" id="jam_main_mulai">
+                        <option value="09">09</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                        <option value="13">13</option>
+                        <option value="14">14</option>
+                        <option value="15">15</option>
+                        <option value="16">16</option>
+                        <option value="17">17</option>
+                        <option value="18">18</option>
+                        <option value="19">19</option>
+                        <option value="20">20</option>
+                        <option value="21">21</option>
+                        <option value="22">22</option>
+                    </select>
+                    <select class="form-select m-1" id="menit_main_mulai">
+                        <option value="00">00</option>
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="30">30</option>
+                        <option value="40">40</option>
+                        <option value="50">50</option>
+                    </select>
+                </div>
+                <div class = "row align-items-center justify-content-center">
+                    <div class="h7 m-2">End Time</div>
+                    <select class="form-select m-1" id="jam_main_akhir">
+                        <option value="09">09</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                        <option value="13">13</option>
+                        <option value="14">14</option>
+                        <option value="15">15</option>
+                        <option value="16">16</option>
+                        <option value="17">17</option>
+                        <option value="18">18</option>
+                        <option value="19">19</option>
+                        <option value="20">20</option>
+                        <option value="21">21</option>
+                        <option value="22">22</option>
+                    </select>
+                    <select class="form-select m-1" id="menit_main_akhir">
+                        <option value="00">00</option>
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="30">30</option>
+                        <option value="40">40</option>
+                        <option value="50">50</option>
+                    </select>
+                </div>
+
+                <!-- Tambahan -->
+                <div class="h5 mt-4 mb-2">Additional</div>
+                <div class="row d-flex justify-content-center align-items-center">
+                    <div class="card align-items-center p-3" style="width: 14rem;">
+                        <img class="card-img-top" style= "width: 80px; height: 80px;" th:src="@{/img/create_reservation/botol.png}" alt="Mineral Water">
+                        <div class="card-body">
+                            <div class="h5">Mineral Water</div>
+                            <div class="h6">Rp5.000</div>
+                            <div class="p">Amount</div>
+                            <input class="form-control text-center" type="number" id="airQty" name="airQty" min=0 value=0>
+                        </div>
+                    </div>
+                    <div class="card align-items-center p-3 m-2" style="width: 14rem;">
+                        <img class="card-img-top" style= "width: 80px; height: 80px;" th:src="@{/img/create_reservation/raket.png}" alt="Racket">
+                        <div class="card-body">
+                            <div class="h5">Racket (Rent)</div>
+                            <div class="h6">Rp15.000</div>
+                            <div class="p">Amount</div>
+                            <input class="form-control text-center" type="number" id="raketQty" name="raketQty" min=0 value=0>
+                        </div>
+                    </div>
+                    <div class="card align-items-center p-3" style="width: 14rem;">
+                        <img class="card-img-top" style= "width: 80px; height: 80px;" th:src="@{/img/create_reservation/shuttlecock.png}" alt="Shuttlecock">
+                        <div class="card-body">
+                            <div class="h5">Shuttlecock</div>
+                            <div class="h6">Rp5.000</div>
+                            <div class="p">Amount</div>
+                            <input class="form-control text-center" type="number" id="shuttlecockQty" name="shuttlecockQty" min=0 value=0>
+                        </div>
                     </div>
                 </div>
-            </div>
+                <div class="h5 mt-4 mb-2">Coupon</div>
+                <select class="form-control" id="kupon">
+                    <option selected value="0">No Coupon Used</option>
+                    <option th:each="kupon: ${kuponList}"
+                            th:text="${kupon.getName()} + ' - ' + ${kupon.getPercentageDiscounted()} + '%'"
+                            th:value="${kupon.getId()}">
+                </select>
+                <br>
+                <input type="submit" class="btn btn-outline-primary mt-3" value="Order">
+            </form>
         </div>
     </div>
 </div>
@@ -84,12 +174,5 @@
 <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 <script th:src="@{/js/reservation.js}"></script>
-<script>
-    $(function() {
-      $( ".datepicker" ).datepicker({
-        dateFormat:"dd-mm-yy"
-      });
-    });
-  </script>
 </body>
 </html>
