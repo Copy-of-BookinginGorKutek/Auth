@@ -18,4 +18,5 @@ public class ReservasiRequest {
     private String waktuMulai;
     private String waktuBerakhir;
     private Map<String, Integer> tambahanQuantity;
+    private Integer kuponId;
 }

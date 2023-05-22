@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @Builder
@@ -20,5 +21,6 @@ public class Reservation {
     private Integer idLapangan;
     private LocalDateTime waktuMulai;
     private LocalDateTime waktuBerakhir;
-
+    private List<Tambahan> tambahanList;
+    private Integer idKupon;
 }
