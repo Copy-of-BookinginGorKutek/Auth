@@ -16,7 +16,7 @@ public class KuponService {
     RestTemplate restTemplate;
 
     public List<Kupon> getAllKupon(String token){
-        String getAllKuponUrl = "http://localhost:8082/gor/get-all-kupon";
+        String getAllKuponUrl = "http://34.142.212.224:60/gor/get-all-kupon";
         HttpHeaders requestHeaders = getJSONHttpHeaders(token);
         HttpEntity<Object> http = new HttpEntity<>(requestHeaders);
 

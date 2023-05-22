@@ -16,7 +16,7 @@ public class OperasionalLapanganService {
     RestTemplate restTemplate;
 
     public List<OperasionalLapangan> getOperasionalLapanganByDate(String date, String token){
-        String getTodayOperasionalUrl = "http://localhost:8082/gor/closed-lapangan/by-date/" + date;
+        String getTodayOperasionalUrl = "http://34.142.212.224:60/gor/closed-lapangan/by-date/" + date;
         HttpHeaders requestHeaders = getJSONHttpHeaders(token);
         HttpEntity<Object> http = new HttpEntity<>(requestHeaders);
 
@@ -30,7 +30,7 @@ public class OperasionalLapanganService {
     }
 
     public List<OperasionalLapangan> getAllOperasionalLapangan(String token){
-        String getOperasionalUrl = "http://localhost:8082/gor/closed-lapangan";
+        String getOperasionalUrl = "http://34.142.212.224:60/gor/closed-lapangan";
         HttpHeaders requestHeaders = getJSONHttpHeaders(token);
         HttpEntity<Object> http = new HttpEntity<>(requestHeaders);
 

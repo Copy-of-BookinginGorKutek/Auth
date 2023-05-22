@@ -19,7 +19,7 @@ public class ReservationService {
     public List<Reservation> getSelf(String emailUser, String token){
         HttpHeaders requestHeaders = getJSONHttpHeaders(token);
         HttpEntity<List<Reservation>> httpEntity = new HttpEntity<>(requestHeaders);
-        String url = String.format("http://localhost:8082/reservation/get-self?emailUser=%s", emailUser);
+        String url = String.format("http://34.142.212.224:60/reservation/get-self?emailUser=%s", emailUser);
         try {
             ResponseEntity<Reservation[]> responseEntity = restTemplate.exchange(
                     url, HttpMethod.GET, httpEntity, Reservation[].class);
@@ -31,7 +31,7 @@ public class ReservationService {
     }
 
     public Reservation getReservasiById(Integer id, String token){
-        String getReservationUrl = "http://localhost:8082/reservation/get/" + id;
+        String getReservationUrl = "http://34.142.212.224:60/reservation/get/" + id;
         HttpHeaders requestHeaders = getJSONHttpHeaders(token);
         HttpEntity<Object> http = new HttpEntity<>(requestHeaders);
 
@@ -41,7 +41,7 @@ public class ReservationService {
     }
 
     public List<Reservation> getReservasiByDate(String date, String token){
-        String getTodayReservationUrl = "http://localhost:8082/reservation/get-reservasi-by-date/" + date;
+        String getTodayReservationUrl = "http://34.142.212.224:60/reservation/get-reservasi-by-date/" + date;
         HttpHeaders requestHeaders = getJSONHttpHeaders(token);
         HttpEntity<Object> http = new HttpEntity<>(requestHeaders);
 
@@ -55,7 +55,7 @@ public class ReservationService {
     }
 
     public List<Reservation> getAllReservasi(String token){
-        String getReservationUrl = "http://localhost:8082/reservation/get-all";
+        String getReservationUrl = "http://34.142.212.224:60/reservation/get-all";
         HttpHeaders requestHeaders = getJSONHttpHeaders(token);
         HttpEntity<Object> http = new HttpEntity<>(requestHeaders);
 

@@ -20,7 +20,7 @@ public class UserNotificationService {
     public List<Notification> getSelf(String emailUser, String token){
         HttpHeaders requestHeaders = getHttpHeaders(token);
         HttpEntity<Object> httpEntity = new HttpEntity<>(requestHeaders);
-        String url = String.format("http://localhost:8083/notification/get/%s", emailUser);
+        String url = String.format("http://34.142.212.224:80/notification/get/%s", emailUser);
         try {
             ResponseEntity<Notification[]> responseEntity = restTemplate.exchange(url, HttpMethod.GET, httpEntity, Notification[].class);
             return List.of(Objects.requireNonNull(responseEntity.getBody()));
@@ -33,7 +33,7 @@ public class UserNotificationService {
     public void deleteNotification(Integer id, String token){
         HttpHeaders requestHeaders = getHttpHeaders(token);
         HttpEntity<Object> httpEntity = new HttpEntity<>(requestHeaders);
-        String url = "http://localhost:8083/notification/delete/" + id;
+        String url = "http://34.142.212.224:80/notification/delete/" + id;
         try {
             restTemplate.exchange(url, HttpMethod.DELETE, httpEntity, String.class);
         } catch (Exception e){
