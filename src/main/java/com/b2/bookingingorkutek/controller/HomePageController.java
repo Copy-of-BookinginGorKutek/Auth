@@ -80,6 +80,7 @@ public class HomePageController {
         } else {
             model.addAttribute("noClosedLapanganToday", false);
         }
+
         model.addAttribute("todayOperasionalList", operasionalLapanganTodayListAsync.get());
         model.addAttribute("todayReservationList", reservationTodayListAsync.get());
         model.addAttribute("name", user.getFirstname() + " " + user.getLastname());
