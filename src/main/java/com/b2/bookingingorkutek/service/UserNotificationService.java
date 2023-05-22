@@ -1,5 +1,6 @@
 package com.b2.bookingingorkutek.service;
 
+import com.b2.bookingingorkutek.model.notification.Notification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -16,12 +17,12 @@ public class UserNotificationService {
     @Autowired
     RestTemplate restTemplate;
 
-    public List<Object> getSelf(String emailUser, String token){
+    public List<Notification> getSelf(String emailUser, String token){
         HttpHeaders requestHeaders = getHttpHeaders(token);
-        HttpEntity<List<Object>> httpEntity = new HttpEntity<>(requestHeaders);
-        String url = String.format("http://34.142.212.224:80/notification/get/%s", emailUser);
+        HttpEntity<Object> httpEntity = new HttpEntity<>(requestHeaders);
+        String url = String.format("http://localhost:8083/notification/get/%s", emailUser);
         try {
-            ResponseEntity<Object[]> responseEntity = restTemplate.exchange(url, HttpMethod.GET, httpEntity, Object[].class);
+            ResponseEntity<Notification[]> responseEntity = restTemplate.exchange(url, HttpMethod.GET, httpEntity, Notification[].class);
             return List.of(Objects.requireNonNull(responseEntity.getBody()));
         }catch(Exception e){
             e.printStackTrace();
@@ -29,6 +30,16 @@ public class UserNotificationService {
         }
     }
 
+    public void deleteNotification(Integer id, String token){
+        HttpHeaders requestHeaders = getHttpHeaders(token);
+        HttpEntity<Object> httpEntity = new HttpEntity<>(requestHeaders);
+        String url = "http://localhost:8083/notification/delete/" + id;
+        try {
+            restTemplate.exchange(url, HttpMethod.DELETE, httpEntity, String.class);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+    }
     private HttpHeaders getHttpHeaders(String token){
         HttpHeaders requestHeaders = new HttpHeaders();
         requestHeaders.setBearerAuth(token);

@@ -1,7 +1,6 @@
 package com.b2.bookingingorkutek.controller;
 
 import com.b2.bookingingorkutek.dto.PaymentProofRequest;
-import com.b2.bookingingorkutek.dto.ReservasiRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +25,7 @@ public class PaymentProofController {
         HttpEntity<Object> http = new HttpEntity<>(paymentProofUrl, requestHeaders);
 
         try{
-            ResponseEntity<Object> response = restTemplate.exchange("http://34.142.212.224:60/reservation/bukti-bayar/" + id, HttpMethod.PUT, http, Object.class);
+            ResponseEntity<Object> response = restTemplate.exchange("http://localhost:8082/reservation/bukti-bayar/" + id, HttpMethod.PUT, http, Object.class);
             System.out.println("response " + response);
             return response;
         }catch(HttpServerErrorException | HttpClientErrorException e){

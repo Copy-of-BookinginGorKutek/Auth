@@ -4,8 +4,9 @@ import com.b2.bookingingorkutek.dto.ModelUserDto;
 import com.b2.bookingingorkutek.model.lapangan.OperasionalLapangan;
 import com.b2.bookingingorkutek.model.reservation.Reservation;
 import com.b2.bookingingorkutek.service.AuthorizationService;
+import com.b2.bookingingorkutek.service.OperasionalLapanganService;
+import com.b2.bookingingorkutek.service.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
@@ -14,8 +15,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -26,6 +25,10 @@ import java.util.concurrent.ExecutionException;
 public class HomePageController {
     @Autowired
     AuthorizationService authorizationService;
+    @Autowired
+    OperasionalLapanganService operasionalLapanganService;
+    @Autowired
+    ReservationService reservationService;
     @Autowired
     RestTemplate restTemplate;
     @GetMapping("/")
@@ -39,48 +42,16 @@ public class HomePageController {
         Date localDate = new Date();
         String localDateAsString = (localDate.getYear() + 1900) + "-" + formatDatePart(localDate.getMonth() + 1) + "-" + formatDatePart(localDate.getDate());
 
-        CompletableFuture<List<Reservation>> reservationTodayListAsync = CompletableFuture.supplyAsync(() -> {
-            String getTodayReservationUrl = "http://34.142.212.224:60/reservation/get-reservasi-by-date/" + localDateAsString;
-            HttpHeaders requestHeaders = new HttpHeaders();
-            requestHeaders.setBearerAuth(token);
-            requestHeaders.setContentType(MediaType.APPLICATION_JSON);
-            HttpEntity<Object> http = new HttpEntity<>(requestHeaders);
+        CompletableFuture<List<Reservation>> reservationTodayListAsync = CompletableFuture.supplyAsync(() ->
+                reservationService.getReservasiByDate(localDateAsString, token)
+        );
 
-            ResponseEntity<Reservation[]> responseTodayReservation = restTemplate.exchange(getTodayReservationUrl, HttpMethod.GET, http, Reservation[].class);
-            Reservation[] arrayOfTodayReservation = responseTodayReservation.getBody();
-            if (arrayOfTodayReservation == null){
-                return new ArrayList<>();
-            }
-            return Arrays.asList(arrayOfTodayReservation);
-        });
+        CompletableFuture<List<OperasionalLapangan>> operasionalLapanganTodayListAsync = CompletableFuture.supplyAsync(() ->
+                operasionalLapanganService.getOperasionalLapanganByDate(localDateAsString, token)
+        );
 
-        CompletableFuture<List<OperasionalLapangan>> operasionalLapanganTodayListAsync = CompletableFuture.supplyAsync(() -> {
-            String getTodayOperasionalUrl = "http://34.142.212.224:60/gor/closed-lapangan/by-date/" + localDateAsString;
-            HttpHeaders requestHeaders = new HttpHeaders();
-            requestHeaders.setBearerAuth(token);
-            requestHeaders.setContentType(MediaType.APPLICATION_JSON);
-            HttpEntity<Object> http = new HttpEntity<>(requestHeaders);
-
-            ResponseEntity<OperasionalLapangan[]> responseTodayOperasional = restTemplate.exchange(getTodayOperasionalUrl, HttpMethod.GET, http, OperasionalLapangan[].class);
-            OperasionalLapangan[] arrayOfTodayOperasional = responseTodayOperasional.getBody();
-            if (arrayOfTodayOperasional == null){
-                return new ArrayList<>();
-            }
-            return Arrays.asList(arrayOfTodayOperasional);
-        });
-
-        if (reservationTodayListAsync.get().isEmpty()){
-            model.addAttribute("notEmptyTodayReservation", false);
-        } else {
-            model.addAttribute("notEmptyTodayReservation", true);
-        }
-
-        if (operasionalLapanganTodayListAsync.get().isEmpty()){
-            model.addAttribute("noClosedLapanganToday", true);
-        } else {
-            model.addAttribute("noClosedLapanganToday", false);
-        }
-
+        model.addAttribute("notEmptyTodayReservation", !reservationTodayListAsync.get().isEmpty());
+        model.addAttribute("noClosedLapanganToday", operasionalLapanganTodayListAsync.get().isEmpty());
         model.addAttribute("todayOperasionalList", operasionalLapanganTodayListAsync.get());
         model.addAttribute("todayReservationList", reservationTodayListAsync.get());
         model.addAttribute("name", user.getFirstname() + " " + user.getLastname());
