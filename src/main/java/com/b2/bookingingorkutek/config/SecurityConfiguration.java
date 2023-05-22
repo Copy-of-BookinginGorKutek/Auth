@@ -29,7 +29,7 @@ public class SecurityConfiguration {
                 .cors()
                 .and()
                 .authorizeHttpRequests()
-                .requestMatchers("/auth/**", "/auth-page/**", "/reservation-page/**", "/authorization/**", "/user-reservation-page/**", "/create-reservation/**", "/home/**", "/pay/**")
+                .requestMatchers("/auth/**", "/auth-page/**", "/reservation-page/**", "/authorization/**", "/user-reservation-page/**", "/create-reservation/**", "/home/**", "/pay/**", "/user-notification/**")
                 .permitAll()
                 .requestMatchers("/css/**", "/js/**", "/img/**")
                 .permitAll()
