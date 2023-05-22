@@ -41,7 +41,7 @@ public class UserReservationPageController {
             return "redirect:/auth-page/login";
         }
         Reservation reservation = reservationService.getReservasiById(idReservasi, token);
-        model.addAttribute("reservasi", reservation);
+        model.addAttribute("reservation", reservation);
         return "user_reservation";
     }
 
