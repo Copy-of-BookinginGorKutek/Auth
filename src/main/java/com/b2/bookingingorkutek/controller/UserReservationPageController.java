@@ -1,7 +1,7 @@
 package com.b2.bookingingorkutek.controller;
 
 import com.b2.bookingingorkutek.dto.ModelUserDto;
-import com.b2.bookingingorkutek.model.reservation.Reservasi;
+import com.b2.bookingingorkutek.model.reservation.Reservation;
 import com.b2.bookingingorkutek.service.AuthorizationService;
 import com.b2.bookingingorkutek.service.UserReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,8 +31,8 @@ public class UserReservationPageController {
         if(user == null || user.getRole().equals("ADMIN")) {
             return "redirect:/auth-page/login";
         }
-        Reservasi reservasi = userReservationService.getReservasiById(user.getEmailUser(), idReservasi, token);
-        model.addAttribute("reservasi", reservasi);
+        Reservation reservation = userReservationService.getReservasiById(user.getEmailUser(), idReservasi, token);
+        model.addAttribute("reservasi", reservation);
         return "user_reservation";
     }
 
@@ -42,8 +42,8 @@ public class UserReservationPageController {
         if(user == null || user.getRole().equals("ADMIN")) {
             return "redirect:/auth-page/login";
         }
-        List<Reservasi> userReservasiList = userReservationService.getSelf(user.getEmailUser(), token);
-        model.addAttribute("reservasiList", userReservasiList);
+        List<Reservation> userReservationList = userReservationService.getSelf(user.getEmailUser(), token);
+        model.addAttribute("reservationList", userReservationList);
         model.addAttribute("user", user);
         return "user_reservation_list";
     }

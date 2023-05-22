@@ -35,7 +35,7 @@ class AuthenticationServiceImplTest {
 
     @Mock
     AuthenticationService authenticationService;// =
-     //       new AuthenticationService(userRepository, passwordEncoder, jwtService, authenticationManager);
+//     //       new AuthenticationService(userRepository, passwordEncoder, jwtService, authenticationManager);
 
     @Test
     void testAuthServiceRegisterShouldAddToRepository() throws Exception {

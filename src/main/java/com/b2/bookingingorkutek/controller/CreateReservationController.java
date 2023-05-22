@@ -2,10 +2,7 @@ package com.b2.bookingingorkutek.controller;
 
 import com.b2.bookingingorkutek.dto.ReservasiRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
@@ -25,7 +22,7 @@ public class CreateReservationController {
         requestHeaders.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<ReservasiRequest> http = new HttpEntity<>(reservasiRequest, requestHeaders);
         try{
-            return restTemplate.postForEntity("http://34.142.212.224:60/reservation/create", http, Object.class);
+            return restTemplate.postForEntity("http://reservation/reservation/create", http, Object.class);
         }catch(HttpServerErrorException | HttpClientErrorException e){
             e.printStackTrace();
             return ResponseEntity.status(e.getStatusCode()).body(e.getResponseBodyAsString());
