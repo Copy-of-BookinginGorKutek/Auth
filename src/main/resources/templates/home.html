@@ -164,7 +164,7 @@
 
             function getAllNotifications(){
                 // TODO: fix this
-                $.get(`http://localhost:8083/notification/get/jaycentgunawanong@gmail.com`, function(data){
+                $.get('/user-notification/get/jaycentgunawanong@gmail.com', function(data){
                     showAllNotifications(data);
                 })
             }
