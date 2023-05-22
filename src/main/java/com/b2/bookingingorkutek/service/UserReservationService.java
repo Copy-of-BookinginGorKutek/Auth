@@ -1,6 +1,6 @@
 package com.b2.bookingingorkutek.service;
 
-import com.b2.bookingingorkutek.model.reservation.Reservasi;
+import com.b2.bookingingorkutek.model.reservation.Reservation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
@@ -14,22 +14,23 @@ public class UserReservationService {
     @Autowired
     RestTemplate restTemplate;
 
-    public List<Reservasi> getSelf(String emailUser, String token){
+    public List<Reservation> getSelf(String emailUser, String token){
         HttpHeaders requestHeaders = getHttpHeaders(token);
-        HttpEntity<List<Reservasi>> httpEntity = new HttpEntity<>(requestHeaders);
-        String url = String.format("http://reservation/reservation/get-self?emailUser=%s", emailUser);
+        HttpEntity<List<Reservation>> httpEntity = new HttpEntity<>(requestHeaders);
+        String url = String.format("http://34.142.212.224:60/reservation/get-self?emailUser=%s", emailUser);
         try {
-            ResponseEntity<Reservasi[]> responseEntity = restTemplate.exchange(url, HttpMethod.GET, httpEntity, Reservasi[].class);
+            ResponseEntity<Reservation[]> responseEntity = restTemplate.exchange(url, HttpMethod.GET, httpEntity, Reservation[].class);
             return List.of(Objects.requireNonNull(responseEntity.getBody()));
         }catch(Exception e){
+            e.printStackTrace();
             return List.of();
         }
     }
 
-    public Reservasi getReservasiById(String emailUser, Integer idReservasi, String token){
-        List<Reservasi> reservasiList = getSelf(emailUser, token);
-        return reservasiList.stream()
-                .filter(reservasi -> idReservasi.equals(reservasi.getId()))
+    public Reservation getReservasiById(String emailUser, Integer idReservasi, String token){
+        List<Reservation> reservationList = getSelf(emailUser, token);
+        return reservationList.stream()
+                .filter(reservation -> idReservasi.equals(reservation.getId()))
                 .findAny()
                 .orElse(null);
     }

@@ -1,20 +1,18 @@
 package com.b2.bookingingorkutek.model.reservation;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Reservasi {
+public class Reservation {
     private Integer id;
     private String emailUser;
     private String statusPembayaran;
@@ -23,5 +21,6 @@ public class Reservasi {
     private Integer idLapangan;
     private LocalDateTime waktuMulai;
     private LocalDateTime waktuBerakhir;
-
+    private List<Tambahan> tambahanList;
+    private Integer idKupon;
 }

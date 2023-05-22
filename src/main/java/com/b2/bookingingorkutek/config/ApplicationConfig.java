@@ -46,7 +46,6 @@ public class ApplicationConfig {
     }
 
     @Bean
-    @LoadBalanced
     public RestTemplate restTemplate(){
         return new RestTemplate();
     }
