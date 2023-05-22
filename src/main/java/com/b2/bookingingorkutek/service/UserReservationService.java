@@ -17,7 +17,7 @@ public class UserReservationService {
     public List<Reservation> getSelf(String emailUser, String token){
         HttpHeaders requestHeaders = getHttpHeaders(token);
         HttpEntity<List<Reservation>> httpEntity = new HttpEntity<>(requestHeaders);
-        String url = String.format("http://localhost:8082/reservation/get-self?emailUser=%s", emailUser);
+        String url = String.format("http://34.142.212.224:60/reservation/get-self?emailUser=%s", emailUser);
         try {
             ResponseEntity<Reservation[]> responseEntity = restTemplate.exchange(url, HttpMethod.GET, httpEntity, Reservation[].class);
             return List.of(Objects.requireNonNull(responseEntity.getBody()));
