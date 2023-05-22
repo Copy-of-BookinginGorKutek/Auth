@@ -45,7 +45,6 @@ public class ReservationPageController {
             listOfAllKupon = Arrays.asList(arrayOfAllKupon);
             noKuponExist = false;
         }
-        System.out.println(listOfAllKupon);
         model.addAttribute("kuponList", listOfAllKupon);
         model.addAttribute("noKuponExist", noKuponExist);
         return "create_reservation";

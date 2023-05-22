@@ -2,6 +2,8 @@ package com.b2.bookingingorkutek.controller;
 
 
 import com.b2.bookingingorkutek.dto.ModelUserDto;
+import com.b2.bookingingorkutek.model.kupon.Kupon;
+import com.b2.bookingingorkutek.model.reservation.Reservation;
 import com.b2.bookingingorkutek.service.AuthorizationService;
 import com.b2.bookingingorkutek.service.JwtService;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,9 +13,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.client.RestTemplate;
+
+import java.net.URI;
 
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -44,6 +49,7 @@ class ReservationPageControllerTest {
     @Test
     void testAccessingCreateReservationPageWithRoleUser() throws Exception{
         when(authorizationService.requestCurrentUser(anyString())).thenReturn(modelUserDto);
+        when(restTemplate.exchange(anyString(), any(), any(), (Class<Object>) any())).thenReturn(new ResponseEntity<>(null, HttpStatusCode.valueOf(200)));
         mvc.perform(get("/reservation-page/create"))
                 .andExpect(status().isOk())
                 .andExpect(handler().methodName("createReservation"));
