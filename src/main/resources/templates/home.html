@@ -147,17 +147,9 @@
             /*<![CDATA[*/
             // source: https://stackoverflow.com/questions/39418405/making-a-live-clock-in-javascript/67149791
             function startTime() {
-                var today = new Date();
-                var date = today.getDate();
-                var month = today.toLocaleString('default', {month: 'long'});
-                var year = today.getFullYear();
-                var h = today.getHours();
-                var m = today.getMinutes();
-                var s = today.getSeconds();
-                h = checkTime(h);
-                m = checkTime(m);
-                s = checkTime(s);
-                document.getElementById('curr-time').innerHTML = `${date} ${month} ${year}, ${h}:${m}:${s}`;
+                var options = {dateStyle: "full", timeStyle: "full", timeZone: "Asia/Jakarta"};
+                var today = new Date().toLocaleString("en-GB", options);
+                document.getElementById('curr-time').innerHTML = today;
                 var t = setTimeout(startTime, 500);
             }
 

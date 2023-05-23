@@ -1,14 +1,12 @@
 package com.b2.bookingingorkutek.model.reservation;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Generated
 public class Tambahan {
     private Integer tambahanId;
     private Reservation reservasi;

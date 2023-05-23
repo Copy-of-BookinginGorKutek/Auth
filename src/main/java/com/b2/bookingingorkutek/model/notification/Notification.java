@@ -1,9 +1,6 @@
 package com.b2.bookingingorkutek.model.notification;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
@@ -11,6 +8,7 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Generated
 public class Notification {
     private Integer id;
     private String emailUser;
