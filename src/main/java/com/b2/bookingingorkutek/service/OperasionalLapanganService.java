@@ -1,6 +1,7 @@
 package com.b2.bookingingorkutek.service;
 
 import com.b2.bookingingorkutek.model.lapangan.OperasionalLapangan;
+import lombok.Generated;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
@@ -11,6 +12,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Service
+@Generated
 public class OperasionalLapanganService {
     @Autowired
     RestTemplate restTemplate;

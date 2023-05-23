@@ -3,6 +3,7 @@ package com.b2.bookingingorkutek.exceptions.advice;
 import com.b2.bookingingorkutek.exceptions.ErrorTemplate;
 import com.b2.bookingingorkutek.exceptions.UserAlreadyExistException;
 import io.jsonwebtoken.JwtException;
+import lombok.Generated;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -15,6 +16,7 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
 @ControllerAdvice
+@Generated
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(value = {UserAlreadyExistException.class})
