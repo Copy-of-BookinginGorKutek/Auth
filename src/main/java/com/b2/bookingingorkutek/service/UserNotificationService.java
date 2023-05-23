@@ -1,6 +1,7 @@
 package com.b2.bookingingorkutek.service;
 
 import com.b2.bookingingorkutek.model.notification.Notification;
+import lombok.Generated;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -13,6 +14,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Service
+@Generated
 public class UserNotificationService {
     @Autowired
     RestTemplate restTemplate;

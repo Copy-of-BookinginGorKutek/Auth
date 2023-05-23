@@ -1,9 +1,6 @@
 package com.b2.bookingingorkutek.model.reservation;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -12,6 +9,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Generated
 public class Reservation {
     private Integer id;
     private String emailUser;
