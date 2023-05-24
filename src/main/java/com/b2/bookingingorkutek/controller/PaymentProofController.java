@@ -19,14 +19,12 @@ public class PaymentProofController {
                                                    @PathVariable Integer id,
                                                    @CookieValue(name = "token", defaultValue = "") String token){
         HttpHeaders requestHeaders = new HttpHeaders();
-        System.out.println(token);
         requestHeaders.setBearerAuth(token);
         requestHeaders.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<Object> http = new HttpEntity<>(paymentProofUrl, requestHeaders);
 
         try{
             ResponseEntity<Object> response = restTemplate.exchange("http://34.142.212.224:60/reservation/bukti-bayar/" + id, HttpMethod.PUT, http, Object.class);
-            System.out.println("response " + response);
             return response;
         }catch(HttpServerErrorException | HttpClientErrorException e){
             e.printStackTrace();

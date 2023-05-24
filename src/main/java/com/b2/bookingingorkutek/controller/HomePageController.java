@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
@@ -40,7 +42,9 @@ public class HomePageController {
         }
         // Date format: yyyy-MM-dd
         Date localDate = new Date();
-        String localDateAsString = (localDate.getYear() + 1900) + "-" + formatDatePart(localDate.getMonth() + 1) + "-" + formatDatePart(localDate.getDate());
+        Calendar calendar = new GregorianCalendar();
+        calendar.setTime(localDate);
+        String localDateAsString = (calendar.get(Calendar.YEAR)) + "-" + formatDatePart(calendar.get(Calendar.MONTH) + 1) + "-" + formatDatePart(calendar.get(Calendar.DAY_OF_MONTH));
 
         CompletableFuture<List<Reservation>> reservationTodayListAsync = CompletableFuture.supplyAsync(() ->
                 reservationService.getReservasiByDate(localDateAsString, token)
