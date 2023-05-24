@@ -10,6 +10,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class KuponRequest {
-    private String namaKupon;
-    private Integer diskon;
+    private String name;
+    private Integer percentageDiscounted;
 }

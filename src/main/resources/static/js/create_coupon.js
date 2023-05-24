@@ -15,8 +15,8 @@ $(document).on('submit', '#create_coupon', function(e){
     var namaKupon = document.getElementById("code").value;
     var diskon = document.getElementById("discount").value;
     xhttp.send(JSON.stringify({
-        "namaKupon" : namaKupon,
-        "diskon" : diskon
+        "name" : namaKupon,
+        "percentageDiscounted" : diskon
     }));
 })
 

@@ -23,7 +23,7 @@ public class CreateCouponController {
         requestHeaders.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<KuponRequest> http = new HttpEntity<>(kuponRequest, requestHeaders);
         try{
-            return restTemplate.postForEntity("http://34.142.212.224:60/gor/create-coupon", http, Object.class);
+            return restTemplate.postForEntity("http://34.142.212.224:60/gor/create-kupon", http, Object.class);
         }catch(HttpServerErrorException | HttpClientErrorException e){
             e.printStackTrace();
             return ResponseEntity.status(e.getStatusCode()).body(e.getResponseBodyAsString());
