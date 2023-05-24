@@ -31,7 +31,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @WebMvcTest(HomePageController.class)
 @AutoConfigureMockMvc(addFilters = false)
-public class HomePageControllerTest {
+class HomePageControllerTest {
 
     @Autowired
     private MockMvc mvc;

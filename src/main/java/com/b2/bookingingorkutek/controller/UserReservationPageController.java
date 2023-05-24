@@ -7,7 +7,6 @@ import com.b2.bookingingorkutek.service.AuthorizationService;
 import com.b2.bookingingorkutek.service.OperasionalLapanganService;
 import com.b2.bookingingorkutek.service.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
@@ -16,8 +15,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
@@ -33,12 +30,14 @@ public class UserReservationPageController {
     RestTemplate restTemplate;
     @Autowired
     AuthorizationService authorizationService;
+    static final String ADMIN = "ADMIN";
+    static final String REDIRECT_TO_LOGIN = "redirect:/auth-page/login";
 
     @GetMapping("/get-self/{idReservasi}")
     public String getUserReservation(@CookieValue(name = "token", defaultValue = "") String token, @PathVariable Integer idReservasi, Model model){
         ModelUserDto user = authorizationService.requestCurrentUser(token);
-        if(user == null || user.getRole().equals("ADMIN")) {
-            return "redirect:/auth-page/login";
+        if(user == null || user.getRole().equals(ADMIN)) {
+            return REDIRECT_TO_LOGIN;
         }
         Reservation reservation = reservationService.getReservasiById(idReservasi, token);
         model.addAttribute("reservation", reservation);
@@ -48,8 +47,8 @@ public class UserReservationPageController {
     @GetMapping("/get-self")
     public String getUserReservationList(@CookieValue(name = "token", defaultValue = "") String token, Model model){
         ModelUserDto user = authorizationService.requestCurrentUser(token);
-        if(user == null || user.getRole().equals("ADMIN")) {
-            return "redirect:/auth-page/login";
+        if(user == null || user.getRole().equals(ADMIN)) {
+            return REDIRECT_TO_LOGIN;
         }
         List<Reservation> userReservationList = reservationService.getSelf(user.getEmailUser(), token);
         model.addAttribute("noReservation", userReservationList.isEmpty());
@@ -61,8 +60,8 @@ public class UserReservationPageController {
     @GetMapping("/get-all-reservation")
     public String getAllReservationsAndCourtAvailability(@CookieValue(name = "token", defaultValue = "") String token, Model model) throws ExecutionException, InterruptedException {
         ModelUserDto user = authorizationService.requestCurrentUser(token);
-        if(user == null || user.getRole().equals("ADMIN")) {
-            return "redirect:/auth-page/login";
+        if(user == null || user.getRole().equals(ADMIN)) {
+            return REDIRECT_TO_LOGIN;
         }
 
         CompletableFuture<List<Reservation>> reservationListAsync = CompletableFuture.supplyAsync(() ->
@@ -83,8 +82,8 @@ public class UserReservationPageController {
     @GetMapping("/get-all-reservation/{date}")
     public String getAllReservationsAndCourtAvailabilityByDate(@CookieValue(name = "token", defaultValue = "") String token, Model model, @PathVariable String date) throws ExecutionException, InterruptedException {
         ModelUserDto user = authorizationService.requestCurrentUser(token);
-        if(user == null || user.getRole().equals("ADMIN")) {
-            return "redirect:/auth-page/login";
+        if(user == null || user.getRole().equals(ADMIN)) {
+            return REDIRECT_TO_LOGIN;
         }
 
         CompletableFuture<List<Reservation>> reservationListAsync = CompletableFuture.supplyAsync(() ->
