@@ -28,7 +28,7 @@ public class AdminCouponPageController {
     @GetMapping("/get-all-coupon")
     public String getAllCoupon(@CookieValue(name = "token", defaultValue = "") String token, Model model) throws ExecutionException, InterruptedException {
         ModelUserDto user = authorizationService.requestCurrentUser(token);
-        if(user == null || user.getRole().equals("ADMIN")) {
+        if(user == null) {
             return "redirect:/auth-page/login";
         }
 
@@ -54,7 +54,7 @@ public class AdminCouponPageController {
         }
 
         model.addAttribute("couponList", couponListAsync.get());
-        return "dashboard_admin";
+        return "list_coupon";
     }
 
 }
