@@ -24,5 +24,4 @@ public class CreateLapanganController {
             return ResponseEntity.status(e.getStatusCode()).body(e.getResponseBodyAsString());
         }
     }
-
 }
