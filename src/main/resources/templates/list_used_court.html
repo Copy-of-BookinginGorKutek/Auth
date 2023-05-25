@@ -347,8 +347,8 @@
                     Court
                 </a>
                 <div class="dropdown-menu" aria-labelledby="courtDropdown">
-                    <a class="dropdown-item" href="/admin-court-page/get-available-court">List of Courts</a>
-                    <a class="dropdown-item" href="/admin-court-page/add-court">Add Court</a>
+                    <a class="dropdown-item" href="#">List of Courts</a>
+                    <a class="dropdown-item" href="/lapangan-page/create">Add Court</a>
                 </div>
             </li>
             <li class="nav-item dropdown active">
@@ -357,7 +357,7 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="couponDropdown">
                     <a class="dropdown-item" href="/admin-coupon-page/get-all-coupon">List of Coupons</a>
-                    <a class="dropdown-item" href="/admin-coupon-page/add-coupon">Create Court</a>
+                    <a class="dropdown-item" href="/admin-coupon-page/create">Create Coupon</a>
                 </div>
             </li>
         </ul>
@@ -393,11 +393,6 @@
                                     <span class="widget-49-meeting-time">12:00 to 13.30 Hrs</span>
                                 </div>
                             </div>
-                            <ol class="widget-49-meeting-points">
-                                <li class="widget-49-meeting-item"><span>Tambahan 1</span></li>
-                                <li class="widget-49-meeting-item"><span>Tambahan 2</span></li>
-                                <li class="widget-49-meeting-item"><span>Tambahan 3</span></li>
-                            </ol>
                             <div class="widget-49-meeting-action">
                                 <a href="#" class="btn btn-sm btn-flash-border-primary">Detail Order</a>
                             </div>
@@ -422,11 +417,8 @@
                                         <span class="widget-49-meeting-time" th:text="${#temporals.format(reservation.getWaktuMulai(), 'dd-MM-yyyy')} to ${#temporals.format(reservation.getWaktuBerakhir(), 'dd-MM-yyyy')} Hrs"></span>
                                     </div>
                                 </div>
-                                <ol class="widget-49-meeting-points">
-                                    <li class="widget-49-meeting-item" th:each="tambahan: ${reservation.getTambahanList()}"><span></span></li>
-                                </ol>
                                 <div class="widget-49-meeting-action">
-                                    <a href="/user-reservation-page/get-self/{${reservation.getId()}}" class="btn btn-sm btn-flash-border-warning">Detail Order</a>
+                                    <a href="#" id="detail-order-link" class="btn btn-sm btn-flash-border-warning">Detail Order</a>
                                 </div>
                             </div>
                         </div>
@@ -436,6 +428,10 @@
         </div>
     </div>
 </div>
-
+<script>
+    var reservationId = [[${reservation.getId()}]];
+    var link = "/user-reservation-page/get-self/" + reservationId;
+    document.getElementById("detail-order-link").href = link;
+</script>
 </body>
 </html>
