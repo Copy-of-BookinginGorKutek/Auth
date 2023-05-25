@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>List of Coupons</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    #cards{
+      margin-top: 30px;
+    }
+    .card {
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+
+    .card-header {
+      background-color: #f0f0f0;
+      padding: 10px;
+    }
+
+    .card-body {
+      padding: 10px;
+    }
+
+    .card-text {
+      font-size: 16px;
+    }
+    h1{
+      margin-bottom: 30px;
+    }
+  </style>
+</head>
+
+<body style="background-color: #F6F1F1;">
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: white;">
+  <a class="navbar-brand" href="#">
+    <img th:src="@{/img/logo.png}" width="50" height="50" alt="">
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="/home/">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/admin-resevation-page">Reservation</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="courtDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Court
+        </a>
+        <div class="dropdown-menu" aria-labelledby="courtDropdown">
+          <a class="dropdown-item" href="/admin-court-page/get-available-court">List of Courts</a>
+          <a class="dropdown-item" href="/admin-court-page/add-court">Add Court</a>
+        </div>
+      </li>
+      <li class="nav-item dropdown active">
+        <a class="nav-link dropdown-toggle" href="#" id="couponDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Coupon
+        </a>
+        <div class="dropdown-menu" aria-labelledby="couponDropdown">
+          <a class="dropdown-item" href="/admin-coupon-page/get-all-coupon">List of Coupons</a>
+          <a class="dropdown-item" href="/admin-coupon-page/add-coupon">Create Court</a>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div class="nb">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a href="/logout" type="button" class="btn btn-outline-danger my-2" id="logout">Log Out</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+<div class="container" id="cards">
+  <h1>Coupon List</h1>
+  <div class="row">
+    <div class="col-md-4">
+      <div class="card">
+        <h5 class="card-header">Coupon Name</h5>
+        <div class="card-body">
+          <p class="card-text">Percentage Discounted</p>
+        </div>
+      </div>
+    </div>
+    <div th:each="coupon : ${couponList}"></div>
+    <div class="col-md-4">
+      <div class="card">
+        <h5 class="card-header" th:text="${coupon.getName()}"></h5>
+        <div class="card-body">
+          <p class="card-text" th:text="${coupon.getPercentageDiscounted()}"></p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
