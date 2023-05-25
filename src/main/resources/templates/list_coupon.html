@@ -1,10 +1,15 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>List of Coupons</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <style>
+    .custom-card {
+      width: 350px; /* Set your desired width here */
+    }
+
     #cards{
       margin-top: 30px;
     }
@@ -81,26 +86,44 @@
   <h1>Coupon List</h1>
   <div class="row">
     <div class="col-md-4">
-      <div class="card">
+      <div class="card custom-card">
         <h5 class="card-header">Coupon Name</h5>
         <div class="card-body">
           <p class="card-text">Percentage Discounted</p>
+          <button class="btn btn-danger">Delete</button>
         </div>
       </div>
     </div>
-    <div th:each="coupon : ${couponList}">
+    <div th:each="coupon, couponStat : ${couponList}">
       <div class="col-md-4">
-        <div class="card">
+        <div class="card custom-card">
           <h5 class="card-header" th:text="${coupon.getName()}"></h5>
           <div class="card-body">
             <p class="card-text" th:text="${coupon.getPercentageDiscounted()}"></p>
+            <button class="btn btn-danger" th:attr="onclick=|deleteCoupon('${couponStat.index}')|">Delete</button>
           </div>
         </div>
       </div>
     </div>
-
   </div>
 </div>
+<script>
+  function deleteCoupon(index){
+    var url = "http://34.142.212.224:60/gor/delete-kupon/" + index;
+
+    $.ajax({
+      url: url,
+      type: 'DELETE',
+      success: function() {
+        $('#coupon-card-' + index).remove();
+        console.log('Coupon at index ' + index + ' deleted successfully.');
+      },
+      error: function() {
+        console.error('Error deleting coupon at index ' + index);
+      }
+    });
+  }
+</script>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

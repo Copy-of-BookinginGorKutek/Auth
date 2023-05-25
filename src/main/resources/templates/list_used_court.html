@@ -2,12 +2,20 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Bootstrap Spring Boot Thymeleaf Tiles</title>
+    <title>Reserved Courts</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+
     <style>
-        body{
-            background: #F4F7FD;
-            margin-top:20px;
+        .p{
+            text-align: center;
+        }
+
+        #cards{
+            margin-top: 30px;
+        }
+
+        .custom-card {
+            width: 350px; /* Set your desired width here */
         }
 
         .card-margin {
@@ -318,91 +326,102 @@
         }
     </style>
 </head>
-<body>
-<div class="container">
-    <div class="row">
-        <div class="col-lg-4">
-            <div class="card card-margin">
-                <div class="card-header no-border">
-                    <h5 class="card-title">ID [id pengguna]</h5>
+<body style="background-color: #F6F1F1;">
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: white;">
+    <a class="navbar-brand" href="#">
+        <img th:src="@{/img/logo.png}" width="50" height="50" alt="">
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/home/">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/admin-resevation-page">Reservation</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="courtDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Court
+                </a>
+                <div class="dropdown-menu" aria-labelledby="courtDropdown">
+                    <a class="dropdown-item" href="#">List of Courts</a>
+                    <a class="dropdown-item" href="/lapangan-page/create">Add Court</a>
                 </div>
-                <div class="card-body pt-0">
-                    <div class="widget-49">
-                        <div class="widget-49-title-wrapper">
-                            <div class="widget-49-date-primary">
-                                <span class="widget-49-date-day">ID</span>
-                                <span class="widget-49-date-month">court</span>
+            </li>
+            <li class="nav-item dropdown active">
+                <a class="nav-link dropdown-toggle" href="#" id="couponDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Coupon
+                </a>
+                <div class="dropdown-menu" aria-labelledby="couponDropdown">
+                    <a class="dropdown-item" href="/admin-coupon-page/get-all-coupon">List of Coupons</a>
+                    <a class="dropdown-item" href="/admin-coupon-page/create">Create Coupon</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="nb">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a href="/logout" type="button" class="btn btn-outline-danger my-2" id="logout">Log Out</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div th:if="${noReservation}">
+    <div class="p">No Reservation</div>
+</div>
+<div th:unless="${noReservation}">
+    <div class="container" id="cards">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="card card-margin custom-card">
+                    <div class="card-header no-border">
+                        <h5 class="card-title">ID [id pengguna]</h5>
+                    </div>
+                    <div class="card-body pt-0">
+                        <div class="widget-49">
+                            <div class="widget-49-title-wrapper">
+                                <div class="widget-49-date-primary">
+                                    <span class="widget-49-date-day">ID</span>
+                                    <span class="widget-49-date-month">court</span>
+                                </div>
+                                <div class="widget-49-meeting-info">
+                                    <span class="widget-49-pro-title">nama pengguna</span>
+                                    <span class="widget-49-meeting-time">12:00 to 13.30 Hrs</span>
+                                </div>
                             </div>
-                            <div class="widget-49-meeting-info">
-                                <span class="widget-49-pro-title">nama pengguna</span>
-                                <span class="widget-49-meeting-time">12:00 to 13.30 Hrs</span>
+                            <div class="widget-49-meeting-action">
+                                <a href="#" class="btn btn-sm btn-flash-border-primary">Detail Order</a>
                             </div>
-                        </div>
-                        <ol class="widget-49-meeting-points">
-                            <li class="widget-49-meeting-item"><span>Tambahan 1</span></li>
-                            <li class="widget-49-meeting-item"><span>Tambahan 2</span></li>
-                            <li class="widget-49-meeting-item"><span>Tambahan 3</span></li>
-                        </ol>
-                        <div class="widget-49-meeting-action">
-                            <a href="#" class="btn btn-sm btn-flash-border-primary">Detail Order</a>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="col-lg-4">
-            <div class="card card-margin">
-                <div class="card-header no-border">
-                    <h5 class="card-title">ID [id pengguna]</h5>
-                </div>
-                <div class="card-body pt-0">
-                    <div class="widget-49">
-                        <div class="widget-49-title-wrapper">
-                            <div class="widget-49-date-warning">
-                                <span class="widget-49-date-day">ID</span>
-                                <span class="widget-49-date-month">court</span>
-                            </div>
-                            <div class="widget-49-meeting-info">
-                                <span class="widget-49-pro-title">nama pengguna</span>
-                                <span class="widget-49-meeting-time">12:00 to 13.30 Hrs</span>
-                            </div>
+            <div th:each="reservation : ${reservasiList}">
+                <div class="col-lg-4">
+                    <div class="card card-margin custom-card">
+                        <div class="card-header no-border">
+                            <h5 class="card-title" th:text="${reservation.getId()}"></h5>
                         </div>
-                        <ol class="widget-49-meeting-points">
-                            <li class="widget-49-meeting-item"><span>Tambahan 1</span></li>
-                            <li class="widget-49-meeting-item"><span>Tambahan 2</span></li>
-                            <li class="widget-49-meeting-item"><span>Tambahan 3</span></li>
-                        </ol>
-                        <div class="widget-49-meeting-action">
-                            <a href="#" class="btn btn-sm btn-flash-border-warning">Detail Order</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-4">
-            <div class="card card-margin">
-                <div class="card-header no-border">
-                    <h5 class="card-title">ID [id pengguna]</h5>
-                </div>
-                <div class="card-body pt-0">
-                    <div class="widget-49">
-                        <div class="widget-49-title-wrapper">
-                            <div class="widget-49-date-success">
-                                <span class="widget-49-date-day">ID</span>
-                                <span class="widget-49-date-month">court</span>
+                        <div class="card-body pt-0">
+                            <div class="widget-49">
+                                <div class="widget-49-title-wrapper">
+                                    <div class="widget-49-date-warning">
+                                        <span class="widget-49-date-day" th:each="${reservation.getIdLapangan()}"></span>
+                                    </div>
+                                    <div class="widget-49-meeting-info">
+                                        <span class="widget-49-pro-title" th:text="${user.getLastname()}"></span>
+                                        <span class="widget-49-meeting-time" th:text="${#temporals.format(reservation.getWaktuMulai(), 'dd-MM-yyyy')} to ${#temporals.format(reservation.getWaktuBerakhir(), 'dd-MM-yyyy')} Hrs"></span>
+                                    </div>
+                                </div>
+                                <div class="widget-49-meeting-action">
+                                    <a href="#" id="detail-order-link" class="btn btn-sm btn-flash-border-warning">Detail Order</a>
+                                </div>
                             </div>
-                            <div class="widget-49-meeting-info">
-                                <span class="widget-49-pro-title">nama pengguna</span>
-                                <span class="widget-49-meeting-time">12:00 to 13.30 Hrs</span>
-                            </div>
-                        </div>
-                        <ol class="widget-49-meeting-points">
-                            <li class="widget-49-meeting-item"><span>Tambahan 1</span></li>
-                            <li class="widget-49-meeting-item"><span>Tambahan 2</span></li>
-                            <li class="widget-49-meeting-item"><span>Tambahan 3</span></li>
-                        </ol>
-                        <div class="widget-49-meeting-action">
-                            <a href="#" class="btn btn-sm btn-flash-border-success">Detail Order</a>
                         </div>
                     </div>
                 </div>
@@ -410,5 +429,13 @@
         </div>
     </div>
 </div>
+<script>
+    var reservationId = [[${reservation.getId()}]];
+    var link = "/user-reservation-page/get-self/" + reservationId;
+    document.getElementById("detail-order-link").href = link;
+</script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

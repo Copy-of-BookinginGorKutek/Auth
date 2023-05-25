@@ -57,6 +57,20 @@ public class UserReservationPageController {
         return "user_reservation_list";
     }
 
+    @GetMapping("/get-all-reserved")
+    public String getAllReservedCourt(@CookieValue(name = "token", defaultValue = "") String token, Model model) throws ExecutionException, InterruptedException {
+        ModelUserDto user = authorizationService.requestCurrentUser(token);
+        if(user == null || user.getRole().equals(ADMIN)) {
+            return REDIRECT_TO_LOGIN;
+        }
+        List<Reservation> userReservationList = reservationService.getAllReservasi(token);
+        model.addAttribute("noReservation", userReservationList.isEmpty());
+        model.addAttribute("reservasiList", userReservationList);
+        model.addAttribute("user", user);
+
+        return "list_used_court";
+    }
+
     @GetMapping("/get-all-reservation")
     public String getAllReservationsAndCourtAvailability(@CookieValue(name = "token", defaultValue = "") String token, Model model) throws ExecutionException, InterruptedException {
         ModelUserDto user = authorizationService.requestCurrentUser(token);
