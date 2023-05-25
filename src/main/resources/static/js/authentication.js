@@ -14,7 +14,7 @@ $(document).on('submit', '#loginForm', function(e) {
             if (response.role == "USER") {
                 window.location.replace("/home/");
             } else {
-                console.log("replace ini dgn routing ke dashboard")
+                window.location.replace("/admin-page/dashboard");
             }
         }
     }

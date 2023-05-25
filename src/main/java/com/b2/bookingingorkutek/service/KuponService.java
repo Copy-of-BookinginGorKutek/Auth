@@ -32,6 +32,17 @@ public class KuponService {
         return listOfAllKupon;
     }
 
+    public void deleteCoupon(Integer id, String token){
+        HttpHeaders requestHeaders = getJSONHttpHeaders(token);
+        HttpEntity<Object> httpEntity = new HttpEntity<>(requestHeaders);
+        String url = "http://34.142.212.224:60/gor/delete-kupon/" + id;
+        try {
+            restTemplate.exchange(url, HttpMethod.DELETE, httpEntity, String.class);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
     private HttpHeaders getJSONHttpHeaders(String token){
         HttpHeaders requestHeaders = new HttpHeaders();
         requestHeaders.setBearerAuth(token);
