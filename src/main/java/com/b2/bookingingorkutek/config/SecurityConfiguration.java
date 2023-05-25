@@ -34,7 +34,7 @@ public class SecurityConfiguration {
                 .requestMatchers("/auth/**", "/auth-page/**", "/reservation-page/**", "/authorization/**",
                         "/user-reservation-page/**", "/create-reservation/**", "/home/**", "/pay/**",
                         "/user-notification/**", "/admin-coupon-page/**", "/create-coupon/**",
-                        "/create-lapangan/**", "/lapangan-page/**", "/user/**")
+                        "/create-lapangan/**", "/lapangan-page/**", "/admin-page/**")
                 .permitAll()
                 .requestMatchers("/css/**", "/js/**", "/img/**")
                 .permitAll()
