@@ -56,6 +56,6 @@ public class LapanganPageController {
             return Arrays.asList(arrayOfLapangan);
         });
         model.addAttribute("lapangannList", lapanganListAsync.get());
-        return "list_coupon";
+        return "list_used_court";
     }
 }
