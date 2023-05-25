@@ -1,6 +1,7 @@
 package com.b2.bookingingorkutek.model;
 
 import com.google.common.collect.Sets;
+import lombok.Generated;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import java.util.Set;
@@ -8,6 +9,7 @@ import java.util.stream.Collectors;
 
 import static com.b2.bookingingorkutek.model.ApplicationUserPermission.*;
 
+@Generated
 public enum ApplicationUserRole {
     ADMIN(Sets.newHashSet(REGISTER, LOGIN, GOR_CREATE, GOR_UPDATE, GOR_READ, GOR_DELETE, BOOKING_READ_ALL, BOOKING_DELETE)),
     USER(Sets.newHashSet(REGISTER, LOGIN, BOOKING_READ_SELF, BOOKING_CREATE, BOOKING_UPDATE, GOR_READ));

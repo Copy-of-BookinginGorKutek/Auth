@@ -1,9 +1,6 @@
 package com.b2.bookingingorkutek.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.Map;
 
@@ -11,6 +8,7 @@ import java.util.Map;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Generated
 public class ReservasiRequest {
     private String emailUser;
     private String statusPembayaran;

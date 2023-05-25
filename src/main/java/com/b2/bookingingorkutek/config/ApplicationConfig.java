@@ -1,8 +1,8 @@
 package com.b2.bookingingorkutek.config;
 
 import com.b2.bookingingorkutek.repository.UserRepository;
+import lombok.Generated;
 import lombok.RequiredArgsConstructor;
-import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -17,6 +17,7 @@ import org.springframework.web.client.RestTemplate;
 
 @Configuration
 @RequiredArgsConstructor
+@Generated
 public class ApplicationConfig {
 
     private final UserRepository userRepository;

@@ -1,15 +1,13 @@
 package com.b2.bookingingorkutek.dto;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Generated
 public class AuthenticationRequest {
     private String email;
     String password;

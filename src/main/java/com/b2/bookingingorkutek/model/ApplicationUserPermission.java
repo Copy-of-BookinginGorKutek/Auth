@@ -1,5 +1,8 @@
 package com.b2.bookingingorkutek.model;
 
+import lombok.Generated;
+
+@Generated
 public enum ApplicationUserPermission {
 
     BOOKING_READ_ALL("booking:read-all"),
