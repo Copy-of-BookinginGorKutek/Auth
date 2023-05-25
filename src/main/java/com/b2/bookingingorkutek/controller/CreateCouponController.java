@@ -1,7 +1,6 @@
 package com.b2.bookingingorkutek.controller;
 
 import com.b2.bookingingorkutek.dto.KuponRequest;
-import com.b2.bookingingorkutek.dto.ReservasiRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
