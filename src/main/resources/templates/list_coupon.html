@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>List of Coupons</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <style>
@@ -85,21 +86,40 @@
         <h5 class="card-header">Coupon Name</h5>
         <div class="card-body">
           <p class="card-text">Percentage Discounted</p>
+          <button class="btn btn-danger" th:onclick="'deleteCoupon(\'' + ${couponStat.index} + '\')'">Delete</button>
         </div>
       </div>
     </div>
-    <div th:each="coupon : ${couponList}"></div>
+    <div th:each="coupon, couponState : ${couponList}"></div>
     <div class="col-md-4">
       <div class="card">
         <h5 class="card-header" th:text="${coupon.getName()}"></h5>
         <div class="card-body">
           <p class="card-text" th:text="${coupon.getPercentageDiscounted()}"></p>
+          <button class="btn btn-danger" th:onclick="'deleteCoupon(\'' + ${couponStat.index} + '\')'">Delete</button>
         </div>
       </div>
     </div>
 
   </div>
 </div>
+<script>
+  function deleteCoupon(id){
+    var url = "http://34.142.212.224:60/gor/delete-kupon/" + id;
+
+    $.ajax({
+      url: url,
+      type: 'DELETE',
+      success: function() {
+        $('#coupon-card-' + id).remove();
+        console.log('Coupon at index ' + id + ' deleted successfully.');
+      },
+      error: function() {
+        console.error('Error deleting coupon at index ' + id);
+      }
+    });
+  }
+</script>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

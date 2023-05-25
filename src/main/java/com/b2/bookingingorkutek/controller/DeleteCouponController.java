@@ -9,20 +9,23 @@ import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
 
 @RestController
-@RequestMapping("/create-coupon")
-public class CreateCouponController {
+@RequestMapping("/delete-coupon")
+public class DeleteCouponController {
     @Autowired
     RestTemplate restTemplate;
 
-    @PostMapping(path="/create", produces = "application/json")
-    public ResponseEntity<Object> createCouponPost(@RequestBody KuponRequest kuponRequest,
-                                                        @CookieValue(name = "token", defaultValue = "") String token){
+    @DeleteMapping(path="/delete/{id}", produces = "application/json")
+    public ResponseEntity<String> deleteCouponPost(@PathVariable int id,
+                                                   @CookieValue(name = "token", defaultValue = "") String token){
+        String url = "http://34.142.212.224:60/gor/delete-kupon/" + id;
+
         HttpHeaders requestHeaders = new HttpHeaders();
         requestHeaders.setBearerAuth(token);
         requestHeaders.setContentType(MediaType.APPLICATION_JSON);
-        HttpEntity<KuponRequest> http = new HttpEntity<>(kuponRequest, requestHeaders);
+        HttpEntity<?> http = new HttpEntity<>(requestHeaders);
         try{
-            return restTemplate.postForEntity("http://34.142.212.224:60/gor/create-kupon", http, Object.class);
+            ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.DELETE, http, String.class);
+            return response;
         }catch(HttpServerErrorException | HttpClientErrorException e){
             e.printStackTrace();
             return ResponseEntity.status(e.getStatusCode()).body(e.getResponseBodyAsString());

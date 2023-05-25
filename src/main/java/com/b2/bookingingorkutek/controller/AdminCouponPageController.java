@@ -19,7 +19,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
 @Controller
-@RequestMapping("admin-coupon-page")
+@RequestMapping("/admin-coupon-page")
 @RequiredArgsConstructor
 public class AdminCouponPageController {
     private final RestTemplate restTemplate;
