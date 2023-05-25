@@ -94,18 +94,8 @@
                                         <td th:text="${reservation.getIdLapangan()}"></td>
                                         <td th:text="${reservation.getStatusPembayaran().replace('_', ' ')}"></td>
                                         <td th:text="${reservation.getBuktiTransfer()}"></td>
-                                        <form th:id="'form-accept' + ${reservation.getId()}" method="post" th:onsubmit="acceptReservation(${reservation.getId()})">
-                                            <td>
-                                                <button th:if="${reservation.getBuktiTransfer()} == ''" type="submit" class="btn btn-primary mb-3" disabled>Accept</button>
-                                                <button th:unless="${reservation.getBuktiTransfer()} == ''" type="submit" class="btn btn-primary mb-3">Accept</button>
-                                            </td>
-                                        </form>
-                                        <form th:id="'form-reject' + ${reservation.getId()}" method="post" th:onsubmit="rejectReservation(${reservation.getId()})">
-                                            <td>
-                                                <button th:if="${reservation.getBuktiTransfer()} == ''" type="submit" class="btn btn-danger mb-3" disabled>Reject</button>
-                                                <button th:unless="${reservation.getBuktiTransfer()} == ''" type="submit" class="btn btn-danger mb-3">Reject</button>
-                                            </td>
-                                        </form>
+                                        <td><a role="button" th:resId="${reservation.getId()}" class="btn btn-primary mb-3" onclick="acceptReservation(this.getAttribute('resId'))">Accept</a></td>
+                                        <td><a role="button" th:resId="${reservation.getId()}" class="btn btn-danger mb-3" onclick="rejectReservation(this.getAttribute('resId'))">Reject</a></td>
                                     </tr>
                                 </table>
                             </div>
@@ -129,7 +119,7 @@
 
         function acceptReservation(id) {
             const xhttp = new XMLHttpRequest();
-            xhttp.open("POST", "/reservation/stat-update/" + id, false);
+            xhttp.open("PUT", "/status/update/" + id, false);
             xhttp.setRequestHeader("Content-Type", "application/json");
 
             xhttp.onload = () => {
@@ -141,19 +131,19 @@
             }
 
             xhttp.send(JSON.stringify({
-                "emailUser": email,
-                "statusPembayaran": 'TERKONFIRMASI',
-                "buktiTransfer": bukti,
-                "waktuMulai": start,
-                "waktuBerakhir": end,
-                "tambahanQuantity": tambahan,
-                "kuponId": kupon
+                "emailUser": null,
+                "statusPembayaran": "TERKONFIRMASI",
+                "buktiTransfer": null,
+                "waktuMulai": null,
+                "waktuBerakhir": null,
+                "tambahanQuantity": null,
+                "kuponId": null
             }));
         }
 
         function rejectReservation(id) {
             const xhttp = new XMLHttpRequest();
-            xhttp.open("POST", "/reservation/stat-update/" + id, false);
+            xhttp.open("PUT", "/status/update/" + id, false);
             xhttp.setRequestHeader("Content-Type", "application/json");
 
             xhttp.onload = () => {
@@ -165,13 +155,13 @@
             }
 
             xhttp.send(JSON.stringify({
-                "emailUser": email,
-                "statusPembayaran": 'BATAL',
-                "buktiTransfer": bukti,
-                "waktuMulai": start,
-                "waktuBerakhir": end,
-                "tambahanQuantity": tambahan,
-                "kuponId": kupon
+                "emailUser": null,
+                "statusPembayaran": "BATAL",
+                "buktiTransfer": null,
+                "waktuMulai": null,
+                "waktuBerakhir": null,
+                "tambahanQuantity": null,
+                "kuponId": null
             }));
         }
     </script>
