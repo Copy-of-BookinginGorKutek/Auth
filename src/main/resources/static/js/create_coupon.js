@@ -7,7 +7,7 @@ $(document).on('submit', '#create_coupon', function(e){
     xhttp.onload = () => {
         if(xhttp.status === 200){
             window.alert("Berhasil membuat kupon");
-            window.location.replace("/admin-court-page/get-all");
+            window.location.replace("/admin-coupon-page/get-all-coupon");
         }else{
             window.alert((JSON.parse(xhttp.response).message));
         }

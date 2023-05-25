@@ -18,7 +18,7 @@ public class CreateLapanganController {
         requestHeaders.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<Object> http = new HttpEntity<>(requestHeaders);
         try{
-            return restTemplate.postForEntity("34.142.212.224:60/gor/create-lapangan", http, Object.class);
+            return restTemplate.postForEntity("http://34.142.212.224:60/gor/create-lapangan", http, Object.class);
         }catch(HttpServerErrorException | HttpClientErrorException e){
             e.printStackTrace();
             return ResponseEntity.status(e.getStatusCode()).body(e.getResponseBodyAsString());

@@ -55,8 +55,8 @@
           Court
         </a>
         <div class="dropdown-menu" aria-labelledby="courtDropdown">
-          <a class="dropdown-item" href="/admin-court-page/get-available-court">List of Courts</a>
-          <a class="dropdown-item" href="/admin-court-page/add-court">Add Court</a>
+          <a class="dropdown-item" href="#">List of Courts</a>
+          <a class="dropdown-item" href="/lapangan-page/create">Add Court</a>
         </div>
       </li>
       <li class="nav-item dropdown active">
@@ -65,7 +65,7 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="couponDropdown">
           <a class="dropdown-item" href="/admin-coupon-page/get-all-coupon">List of Coupons</a>
-          <a class="dropdown-item" href="/admin-coupon-page/add-coupon">Create Court</a>
+          <a class="dropdown-item" href="/admin-coupon-page/create">Create Coupon</a>
         </div>
       </li>
     </ul>
@@ -90,6 +90,7 @@
         </div>
       </div>
     </div>
+<<<<<<< HEAD
     <div th:each="coupon, couponState : ${couponList}"></div>
     <div class="col-md-4">
       <div class="card">
@@ -97,6 +98,15 @@
         <div class="card-body">
           <p class="card-text" th:text="${coupon.getPercentageDiscounted()}"></p>
           <button class="btn btn-danger" th:onclick="'deleteCoupon(\'' + ${couponStat.index} + '\')'">Delete</button>
+=======
+    <div th:each="coupon : ${couponList}">
+      <div class="col-md-4">
+        <div class="card">
+          <h5 class="card-header" th:text="${coupon.getName()}"></h5>
+          <div class="card-body">
+            <p class="card-text" th:text="${coupon.getPercentageDiscounted()}"></p>
+          </div>
+>>>>>>> 19479f97ba07e9c82973b51cc5ed85e9708c4e41
         </div>
       </div>
     </div>
