@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+  <link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
+  <title>Pengaturan Lapangan</title>
+</head>
+<body style="background-color: #F6F1F1;">
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: white;">
+  <a class="navbar-brand" href="#">
+    <img th:src="@{/img/logo.png}" width="50" height="50" alt="">
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="/home/">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/admin-page/dashboard">Dashboard</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/admin-resevation-page">Reservation</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="courtDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Court
+        </a>
+        <div class="dropdown-menu" aria-labelledby="courtDropdown">
+          <a class="dropdown-item" href="/admin-court-page/get-available-court">List of Courts</a>
+          <a class="dropdown-item" href="/admin-court-page/add-court">Add Court</a>
+          <a class="dropdown-item" href="/admin-page/close-court-page">Close Court</a>
+        </div>
+      </li>
+      <li class="nav-item dropdown active">
+        <a class="nav-link dropdown-toggle" href="#" id="couponDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Coupon
+        </a>
+        <div class="dropdown-menu" aria-labelledby="couponDropdown">
+          <a class="dropdown-item" href="/admin-coupon-page/get-all-coupon">List of Coupons</a>
+          <a class="dropdown-item" href="/admin-coupon-page/add-coupon">Create Court</a>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div class="nb">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a href="/logout" type="button" class="btn btn-outline-danger my-2" id="logout">Log Out</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+<div class="p-5 mb-2 bg-dark text-center">
+  <h1 class="fw-bold text-white">Welcome back, Admin!</h1>
+</div>
+<div class="container p-5 h-100">
+  <div class="row d-flex justify-content-center align-items-center h-100">
+    <div class="col-xl-11">
+      <div class="card bg-white text-dark shadow-lg border-1">
+        <div class="card-body p-5 text-center">
+          <div class = "dashboard">
+            <a class="m-auto"><img th:src="@{/img/logo.png}" class="img-fluid" style="width: 150px; height: auto;"></a>
+            <div class="h4 mb-4">Dashboard Admin</div>
+            <div class="container">
+              <div class="card my-3">
+                <div class="card-body">
+                  <div class="mb-3">
+                    <h5>Atur Ketersediaan Per Hari</h5>
+                  </div>
+                  <p>Pilih tanggal: <input type="text" class="datepicker" id="dateForDate"></p>
+                  <select class="form-select" aria-label="selectAvailability" id="openCloseDate">
+                    <option selected>Pilih opsi ketersediaan</option>
+                    <option value="1">Buka</option>
+                    <option value="0">Tutup</option>
+                  </select>
+                  <div class="d-grid mx-auto mt-4">
+                    <button class="btn btn-primary" type="button">Submit</button>
+                  </div>
+                </div>
+              </div>
+              <div class="card my-3">
+                <div class="card-body">
+                  <div class="mb-3">
+                    <h5>Atur Ketersediaan Per Lapangan</h5>
+                  </div>
+                  <p>Pilih tanggal: <input type="text" class="datepicker" id="dateForCourt"></p>
+                  <select class="form-select mb-2" aria-label="selectAvailability" id="pickCourt">
+                    <option selected>Pilih lapangan</option>
+                    <option value="CourtA">Court A</option>
+                    <option value="CourtB">Court B</option>
+                    <option value="CourtC">Court C</option>
+                  </select>
+                  <select class="form-select" aria-label="selectAvailability" id="openCloseCourt">
+                    <option selected>Pilih opsi ketersediaan</option>
+                    <option value="1">Buka</option>
+                    <option value="0">Tutup</option>
+                  </select>
+                  <div class="d-grid mx-auto mt-4">
+                    <button class="btn btn-primary" type="button">Submit</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="footer text-center p-3" style="background-color: white;">
+  <div class="p">© 2023 <strong>BookinginGORKutek</strong> by <strong>Kelompok B2</strong>✨</div>
+</div>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.min.js" integrity="sha384-heAjqF+bCxXpCWLa6Zhcp4fu20XoNIA98ecBC1YkdXhszjoejr5y9Q77hIrv8R9i" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+<script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+</body>
+</html>
