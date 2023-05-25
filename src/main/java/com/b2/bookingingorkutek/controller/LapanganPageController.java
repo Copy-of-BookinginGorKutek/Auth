@@ -3,8 +3,12 @@ package com.b2.bookingingorkutek.controller;
 import com.b2.bookingingorkutek.dto.ModelUserDto;
 import com.b2.bookingingorkutek.model.kupon.Kupon;
 import com.b2.bookingingorkutek.model.lapangan.Lapangan;
+import com.b2.bookingingorkutek.model.reservation.Reservation;
 import com.b2.bookingingorkutek.service.AuthorizationService;
+import com.b2.bookingingorkutek.service.LapanganService;
+import com.b2.bookingingorkutek.service.ReservationService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,8 +26,14 @@ import java.util.concurrent.ExecutionException;
 @RequestMapping("/lapangan-page")
 @RequiredArgsConstructor
 public class LapanganPageController {
+    @Autowired
     private final RestTemplate restTemplate;
+    @Autowired
     private final AuthorizationService authorizationService;
+    @Autowired
+    LapanganService lapanganService;
+    static final String ADMIN = "ADMIN";
+    static final String REDIRECT_TO_LOGIN = "redirect:/auth-page/login";
 
     @GetMapping("/create")
     public String createLapangan(@CookieValue(name = "token", defaultValue = "") String token, Model model){
@@ -34,28 +44,15 @@ public class LapanganPageController {
         return "create_lapangan";
     }
 
-    @GetMapping("/get-all-court")
-    public String getAllCourt(@CookieValue(name = "token", defaultValue = "") String token, Model model) throws ExecutionException, InterruptedException {
+    @GetMapping("/get-all-reserved")
+    public String getAllReservedCourt(@CookieValue(name = "token", defaultValue = "") String token, Model model) throws ExecutionException, InterruptedException {
         ModelUserDto user = authorizationService.requestCurrentUser(token);
-        if(user == null || !user.getRole().equals("ADMIN")) {
-            return "redirect:/auth-page/login";
+        if(user == null || user.getRole().equals(ADMIN)) {
+            return REDIRECT_TO_LOGIN;
         }
+        List<Lapangan> userLapanganList = lapanganService.getAllLapangan(token);
+        model.addAttribute("totalUsers", userLapanganList.size());
 
-        CompletableFuture<List<Lapangan>> lapanganListAsync = CompletableFuture.supplyAsync(() -> {
-            String getLapanganUrl = "http://34.142.212.224:60/gor/get-all-kupon";
-            HttpHeaders requestHeaders = new HttpHeaders();
-            requestHeaders.setBearerAuth(token);
-            requestHeaders.setContentType(MediaType.APPLICATION_JSON);
-            HttpEntity<Object> http = new HttpEntity<>(requestHeaders);
-
-            ResponseEntity<Lapangan[]> responseLapangan = restTemplate.exchange(getLapanganUrl, HttpMethod.GET, http, Lapangan[].class);
-            Lapangan[] arrayOfLapangan = responseLapangan.getBody();
-            if (arrayOfLapangan == null){
-                return new ArrayList<>();
-            }
-            return Arrays.asList(arrayOfLapangan);
-        });
-        model.addAttribute("lapangannList", lapanganListAsync.get());
         return "list_used_court";
     }
 }

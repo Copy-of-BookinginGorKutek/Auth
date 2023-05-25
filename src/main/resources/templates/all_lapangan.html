@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Total Created Users</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <style>
+    .container{
+      text-align: center;
+    }
+  </style>
+</head>
+<body style="background-color: #F6F1F1;">
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: white;">
+  <a class="navbar-brand" href="#">
+    <img th:src="@{/img/logo.png}" width="50" height="50" alt="">
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="/home/">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/admin-resevation-page">Reservation</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="courtDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Court
+        </a>
+        <div class="dropdown-menu" aria-labelledby="courtDropdown">
+          <a class="dropdown-item" href="#">List of Courts</a>
+          <a class="dropdown-item" href="/lapangan-page/create">Add Court</a>
+        </div>
+      </li>
+      <li class="nav-item dropdown active">
+        <a class="nav-link dropdown-toggle" href="#" id="couponDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Coupon
+        </a>
+        <div class="dropdown-menu" aria-labelledby="couponDropdown">
+          <a class="dropdown-item" href="/admin-coupon-page/get-all-coupon">List of Coupons</a>
+          <a class="dropdown-item" href="/admin-coupon-page/create">Create Coupon</a>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div class="nb">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a href="/logout" type="button" class="btn btn-outline-danger my-2" id="logout">Log Out</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+<div class="container">
+  <h1>Total Created Courts</h1>
+  <div class="row">
+    <div>
+      <div class="card">
+        <div class="card-header">
+          <h2>Total Courts</h2>
+        </div>
+        <div class="card-body">
+          <h3 th:text="${totalUsers}">12</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
