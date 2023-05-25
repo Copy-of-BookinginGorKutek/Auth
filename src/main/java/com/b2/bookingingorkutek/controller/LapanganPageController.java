@@ -25,10 +25,6 @@ public class LapanganPageController {
         if(user == null || !user.getRole().equals("ADMIN"))
             return "redirect:/auth-page/login";
         model.addAttribute("user", user);
-        HttpHeaders requestHeaders = new HttpHeaders();
-        requestHeaders.setBearerAuth(token);
-        requestHeaders.setContentType(MediaType.APPLICATION_JSON);
-        HttpEntity<Object> http = new HttpEntity<>(requestHeaders);
         return "create_lapangan";
     }
 }
