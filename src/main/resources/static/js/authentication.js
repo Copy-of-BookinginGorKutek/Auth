@@ -11,7 +11,11 @@ $(document).on('submit', '#loginForm', function(e) {
             window.alert(response.message);
         }else {
             document.cookie = "token=" + response.token + "; path=/";
-            window.location.replace("/home/")
+            if (response.role == "USER") {
+                window.location.replace("/home/");
+            } else {
+                console.log("replace ini dgn routing ke dashboard")
+            }
         }
     }
 

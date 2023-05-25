@@ -2,8 +2,6 @@ package com.b2.bookingingorkutek.controller;
 
 import com.b2.bookingingorkutek.dto.ModelUserDto;
 import com.b2.bookingingorkutek.model.kupon.Kupon;
-import com.b2.bookingingorkutek.model.lapangan.OperasionalLapangan;
-import com.b2.bookingingorkutek.model.reservation.Reservation;
 import com.b2.bookingingorkutek.service.AuthorizationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.*;
@@ -28,7 +26,7 @@ public class AdminCouponPageController {
     @GetMapping("/get-all-coupon")
     public String getAllCoupon(@CookieValue(name = "token", defaultValue = "") String token, Model model) throws ExecutionException, InterruptedException {
         ModelUserDto user = authorizationService.requestCurrentUser(token);
-        if(user == null) {
+        if(user == null || !user.getRole().equals("ADMIN")) {
             return "redirect:/auth-page/login";
         }
 
@@ -46,15 +44,16 @@ public class AdminCouponPageController {
             }
             return Arrays.asList(arrayOfCoupon);
         });
-
-        if (couponListAsync.get().isEmpty()){
-            model.addAttribute("notEmptyCoupon", false);
-        } else {
-            model.addAttribute("notEmptyCoupon", true);
-        }
-
         model.addAttribute("couponList", couponListAsync.get());
         return "list_coupon";
     }
 
+    @GetMapping("/create")
+    public String createCoupon(@CookieValue(name = "token", defaultValue = "") String token, Model model){
+        ModelUserDto user = authorizationService.requestCurrentUser(token);
+        if(user == null || !user.getRole().equals("ADMIN"))
+            return "redirect:/auth-page/login";
+        model.addAttribute("user", user);
+        return "create_coupon";
+    }
 }
