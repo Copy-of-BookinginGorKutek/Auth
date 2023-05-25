@@ -90,17 +90,17 @@
         <h5 class="card-header">Coupon Name</h5>
         <div class="card-body">
           <p class="card-text">Percentage Discounted</p>
-          <button class="btn btn-danger" th:onclick="'deleteCoupon(\'' + ${couponStat.index} + '\')'">Delete</button>
+          <button class="btn btn-danger">Delete</button>
         </div>
       </div>
     </div>
-    <div th:each="coupon, couponState : ${couponList}">
+    <div th:each="coupon, couponStat : ${couponList}">
       <div class="col-md-4">
         <div class="card custom-card">
           <h5 class="card-header" th:text="${coupon.getName()}"></h5>
           <div class="card-body">
             <p class="card-text" th:text="${coupon.getPercentageDiscounted()}"></p>
-            <button class="btn btn-danger" th:onclick="'deleteCoupon(\'' + ${couponStat.index} + '\')'">Delete</button>
+            <button class="btn btn-danger" th:attr="onclick=|deleteCoupon('${couponStat.index}')|">Delete</button>
           </div>
         </div>
       </div>
@@ -108,18 +108,18 @@
   </div>
 </div>
 <script>
-  function deleteCoupon(id){
-    var url = "http://34.142.212.224:60/gor/delete-kupon/" + id;
+  function deleteCoupon(index){
+    var url = "http://34.142.212.224:60/gor/delete-kupon/" + index;
 
     $.ajax({
       url: url,
       type: 'DELETE',
       success: function() {
-        $('#coupon-card-' + id).remove();
-        console.log('Coupon at index ' + id + ' deleted successfully.');
+        $('#coupon-card-' + index).remove();
+        console.log('Coupon at index ' + index + ' deleted successfully.');
       },
       error: function() {
-        console.error('Error deleting coupon at index ' + id);
+        console.error('Error deleting coupon at index ' + index);
       }
     });
   }
