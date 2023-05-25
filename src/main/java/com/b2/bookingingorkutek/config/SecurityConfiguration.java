@@ -33,8 +33,8 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests()
                 .requestMatchers("/auth/**", "/auth-page/**", "/reservation-page/**", "/authorization/**",
                         "/user-reservation-page/**", "/create-reservation/**", "/home/**", "/pay/**",
-                        "/user-notification/**", "/admin-coupon-page/**", "/coupon-controller/**",
-                        "/create-lapangan/**", "/lapangan-page/**")
+                        "/user-notification/**", "/admin-coupon-page/**", "/create-coupon/**",
+                        "/create-lapangan/**", "/lapangan-page/**", "/user/**")
                 .permitAll()
                 .requestMatchers("/css/**", "/js/**", "/img/**")
                 .permitAll()
