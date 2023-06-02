@@ -15,18 +15,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
-
-
 @Controller
 @RequestMapping("/lapangan-page")
 @RequiredArgsConstructor
 public class LapanganPageController {
-    @Autowired
+
     private final RestTemplate restTemplate;
     @Autowired
     private final AuthorizationService authorizationService;
@@ -34,6 +27,7 @@ public class LapanganPageController {
     LapanganService lapanganService;
     static final String ADMIN = "ADMIN";
     static final String REDIRECT_TO_LOGIN = "redirect:/auth-page/login";
+
 
     @GetMapping("/create")
     public String createLapangan(@CookieValue(name = "token", defaultValue = "") String token, Model model){

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Add Lapangan</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    .card-shadow {
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+</head>
+<body style="background-color: #F6F1F1;">
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: white;">
+  <a class="navbar-brand" href="#">
+    <img th:src="@{/img/logo.png}" width="50" height="50" alt="">
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="/home/">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/admin-resevation-page">Reservation</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="courtDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Court
+        </a>
+        <div class="dropdown-menu" aria-labelledby="courtDropdown">
+          <a class="dropdown-item" href="#">List of Courts</a>
+          <a class="dropdown-item" href="/lapangan-page/create">Add Court</a>
+        </div>
+      </li>
+      <li class="nav-item dropdown active">
+        <a class="nav-link dropdown-toggle" href="#" id="couponDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Coupon
+        </a>
+        <div class="dropdown-menu" aria-labelledby="couponDropdown">
+          <a class="dropdown-item" href="/admin-coupon-page/get-all-coupon">List of Coupons</a>
+          <a class="dropdown-item" href="/admin-coupon-page/create">Create Coupon</a>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div class="nb">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a href="/logout" type="button" class="btn btn-outline-danger my-2" id="logout">Log Out</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+<div class="text-center h3">Create Operasional Lapangan</div>
+Lapangan ID: <input type="number" id="lapanganId" class="form-control">
+Tanggal tutup: <input type="text" id="tanggalTutup" class="form-control">
+Format pengisian adalah YYYY-MM-DD
+<a class="btn btn-primary" role="button" onclick="sendOperasionalLapangan()">Send</a>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+  function sendOperasionalLapangan(){
+    const xhttp = new XMLHttpRequest();
+    xhttp.open("POST", "/operasional-lapangan/create", false);
+    xhttp.setRequestHeader("Content-Type", "application/json");
+    xhttp.onload = () => {
+      if(xhttp.status === 200){
+        window.alert("Berhasil membuat operasional lapangan");
+        window.location.replace("/operasional-lapangan-page/create");
+      }else{
+        window.alert((JSON.parse(xhttp.response).message));
+      }
+    }
+    let id = document.getElementById("lapanganId").value;
+    let tanggal = document.getElementById("tanggalTutup").value;
+    xhttp.send(JSON.stringify({
+      "idLapangan": id,
+      "tanggalLibur": tanggal
+    }));
+  }
+</script>
+</body>
+</html>
