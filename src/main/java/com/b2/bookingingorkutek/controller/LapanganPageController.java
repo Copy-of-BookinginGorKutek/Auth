@@ -15,6 +15,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.List;
+import java.util.concurrent.ExecutionException;
+
 @Controller
 @RequestMapping("/lapangan-page")
 @RequiredArgsConstructor
@@ -41,7 +44,7 @@ public class LapanganPageController {
     @GetMapping("/get-all-reserved")
     public String getAllReservedCourt(@CookieValue(name = "token", defaultValue = "") String token, Model model) throws ExecutionException, InterruptedException {
         ModelUserDto user = authorizationService.requestCurrentUser(token);
-        if(user == null || user.getRole().equals(ADMIN)) {
+        if(user == null || !user.getRole().equals(ADMIN)) {
             return REDIRECT_TO_LOGIN;
         }
         List<Lapangan> userLapanganList = lapanganService.getAllLapangan(token);

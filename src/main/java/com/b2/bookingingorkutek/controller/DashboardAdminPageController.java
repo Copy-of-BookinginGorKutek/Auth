@@ -16,6 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -39,10 +42,13 @@ public class DashboardAdminPageController {
             return "redirect:/auth-page/login";
         }
 
-        // Date format: dd-MM-yyyy
-        Date date = Calendar.getInstance().getTime();
-        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-        String strDate = dateFormat.format(date);
+        LocalDateTime localDateTimeUTC = LocalDateTime.now(ZoneId.of("UTC"));
+        LocalDateTime localDateTimeConverted = localDateTimeUTC.atZone(ZoneId.of("UTC"))
+                .withZoneSameInstant(ZoneId.of("Asia/Jakarta"))
+                .toLocalDateTime();
+
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String strDate = dateFormat.format(localDateTimeConverted);
 
         CompletableFuture<List<Reservation>> allReservationListAsync = CompletableFuture.supplyAsync(() ->
                 reservationService.getAllReservasi(token)

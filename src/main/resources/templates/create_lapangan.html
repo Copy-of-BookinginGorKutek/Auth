@@ -22,27 +22,24 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link" href="/home/">Home</a>
+                <a class="nav-link" href="/admin-page/dashboard">Home</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/admin-resevation-page">Reservation</a>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="courtDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <li class="nav-item dropdown active">
+                <a class="nav-link dropdown-toggle" href="#" id="courtDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Court
                 </a>
                 <div class="dropdown-menu" aria-labelledby="courtDropdown">
-                    <a class="dropdown-item" href="#">List of Courts</a>
                     <a class="dropdown-item" href="/lapangan-page/create">Add Court</a>
+                    <a class="dropdown-item" href="/operasional-lapangan-page/create">Close Court</a>
                 </div>
             </li>
-            <li class="nav-item dropdown active">
-                <a class="nav-link dropdown-toggle" href="#" id="couponDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="couponDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Coupon
                 </a>
                 <div class="dropdown-menu" aria-labelledby="couponDropdown">
                     <a class="dropdown-item" href="/admin-coupon-page/get-all-coupon">List of Coupons</a>
-                    <a class="dropdown-item" href="/admin-coupon-page/create">Create Coupon</a>
+                    <a class="dropdown-item" href="/admin-coupon-page/add-coupon">Create Court</a>
                 </div>
             </li>
         </ul>
@@ -70,5 +67,6 @@
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script th:src="@{/js/lapangan.js}"></script>
 </body>
 </html>

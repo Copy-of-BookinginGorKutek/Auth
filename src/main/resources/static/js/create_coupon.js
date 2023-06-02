@@ -9,7 +9,7 @@ $(document).on('submit', '#create_coupon', function(e){
             window.alert("Berhasil membuat kupon");
             window.location.replace("/admin-coupon-page/get-all-coupon");
         }else{
-            window.alert((JSON.parse(xhttp.response).message));
+            window.alert(xhttp.response);
         }
     }
     var namaKupon = document.getElementById("code").value;

@@ -5,9 +5,13 @@ $(document).on('submit', '#create_lapangan', function(e){
     xhttp.setRequestHeader("Content-Type", "application/json");
     xhttp.onload = () => {
         if(xhttp.status === 200){
-            window.alert("Berhasil membuat lapangan");
+            let id = JSON.parse(xhttp.response).id;
+            window.alert("Berhasil membuat lapangan dengan ID " + id);
         }else{
             window.alert((JSON.parse(xhttp.response).message));
         }
     }
+    xhttp.send(JSON.stringify({
+
+    }));
 })

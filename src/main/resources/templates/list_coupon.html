@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>List of Coupons</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
   <style>
     .custom-card {
       width: 350px; /* Set your desired width here */
@@ -49,22 +51,19 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link" href="/home/">Home</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/admin-resevation-page">Reservation</a>
+        <a class="nav-link" href="/admin-page/dashboard">Home</a>
       </li>
       <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="courtDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <a class="nav-link dropdown-toggle" href="#" id="courtDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Court
         </a>
         <div class="dropdown-menu" aria-labelledby="courtDropdown">
-          <a class="dropdown-item" href="#">List of Courts</a>
           <a class="dropdown-item" href="/lapangan-page/create">Add Court</a>
+          <a class="dropdown-item" href="/operasional-lapangan-page/create">Close Court</a>
         </div>
       </li>
       <li class="nav-item dropdown active">
-        <a class="nav-link dropdown-toggle" href="#" id="couponDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <a class="nav-link dropdown-toggle" href="#" id="couponDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Coupon
         </a>
         <div class="dropdown-menu" aria-labelledby="couponDropdown">
@@ -89,18 +88,18 @@
       <div class="card custom-card">
         <h5 class="card-header">Coupon Name</h5>
         <div class="card-body">
-          <p class="card-text">Percentage Discounted</p>
-          <button class="btn btn-danger">Delete</button>
+          <p class="card-text">Discount Amount</p>
+          <button class="btn btn-danger disabled">Delete</button>
         </div>
       </div>
     </div>
-    <div th:each="coupon, couponStat : ${couponList}">
+    <div th:each="coupon: ${couponList}">
       <div class="col-md-4">
         <div class="card custom-card">
           <h5 class="card-header" th:text="${coupon.getName()}"></h5>
           <div class="card-body">
             <p class="card-text" th:text="${coupon.getPercentageDiscounted()}"></p>
-            <button class="btn btn-danger" th:attr="onclick=|deleteCoupon('${couponStat.index}')|">Delete</button>
+            <button class="btn btn-danger" th:resId="${coupon.getId()}" onclick="deleteCoupon(this.getAttribute('resId'))">Delete</button>
           </div>
         </div>
       </div>
@@ -109,22 +108,21 @@
 </div>
 <script>
   function deleteCoupon(index){
-    var url = "http://34.142.212.224:60/gor/delete-kupon/" + index;
+    var url = "http://34.142.212.224:100/coupon-controller/delete/" + index;
 
     $.ajax({
       url: url,
       type: 'DELETE',
       success: function() {
-        $('#coupon-card-' + index).remove();
-        console.log('Coupon at index ' + index + ' deleted successfully.');
+        alert('Coupon with ID ' + index + ' deleted successfully.');
+        window.location.replace("/admin-coupon-page/get-all-coupon");
       },
       error: function() {
-        console.error('Error deleting coupon at index ' + index);
+        console.error('Error deleting coupon with ID ' + index);
       }
     });
   }
 </script>
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
