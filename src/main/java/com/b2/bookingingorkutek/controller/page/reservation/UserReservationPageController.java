@@ -1,4 +1,4 @@
-package com.b2.bookingingorkutek.controller;
+package com.b2.bookingingorkutek.controller.page.reservation;
 
 import com.b2.bookingingorkutek.dto.ModelUserDto;
 import com.b2.bookingingorkutek.model.lapangan.OperasionalLapangan;
@@ -55,20 +55,6 @@ public class UserReservationPageController {
         model.addAttribute("reservasiList", userReservationList);
         model.addAttribute("user", user);
         return "user_reservation_list";
-    }
-
-    @GetMapping("/get-all-reserved")
-    public String getAllReservedCourt(@CookieValue(name = "token", defaultValue = "") String token, Model model) throws ExecutionException, InterruptedException {
-        ModelUserDto user = authorizationService.requestCurrentUser(token);
-        if(user == null || user.getRole().equals(ADMIN)) {
-            return REDIRECT_TO_LOGIN;
-        }
-        List<Reservation> userReservationList = reservationService.getAllReservasi(token);
-        model.addAttribute("noReservation", userReservationList.isEmpty());
-        model.addAttribute("reservasiList", userReservationList);
-        model.addAttribute("user", user);
-
-        return "list_used_court";
     }
 
     @GetMapping("/get-all-reservation")

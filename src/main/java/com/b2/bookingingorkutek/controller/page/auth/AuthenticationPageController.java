@@ -1,4 +1,4 @@
-package com.b2.bookingingorkutek.controller;
+package com.b2.bookingingorkutek.controller.page.auth;
 
 
 import org.springframework.stereotype.Controller;

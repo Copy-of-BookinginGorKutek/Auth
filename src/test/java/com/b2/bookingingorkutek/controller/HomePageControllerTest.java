@@ -1,5 +1,6 @@
 package com.b2.bookingingorkutek.controller;
 
+import com.b2.bookingingorkutek.controller.page.reservation.HomePageController;
 import com.b2.bookingingorkutek.dto.ModelUserDto;
 import com.b2.bookingingorkutek.model.lapangan.OperasionalLapangan;
 import com.b2.bookingingorkutek.model.reservation.Reservation;
@@ -7,7 +8,6 @@ import com.b2.bookingingorkutek.service.AuthorizationService;
 import com.b2.bookingingorkutek.service.JwtService;
 import com.b2.bookingingorkutek.service.OperasionalLapanganService;
 import com.b2.bookingingorkutek.service.ReservationService;
-import com.netflix.discovery.converters.Auto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,6 @@ import java.util.List;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.ArgumentMatchers.contains;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;

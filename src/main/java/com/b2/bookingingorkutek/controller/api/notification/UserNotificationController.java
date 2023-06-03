@@ -1,4 +1,4 @@
-package com.b2.bookingingorkutek.controller;
+package com.b2.bookingingorkutek.controller.api.notification;
 
 import com.b2.bookingingorkutek.model.notification.Notification;
 import com.b2.bookingingorkutek.service.UserNotificationService;
@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("user-notification")
+@RequestMapping("/api/v1/frontend/user-notification")
 public class UserNotificationController {
     @Autowired
     UserNotificationService userNotificationService;

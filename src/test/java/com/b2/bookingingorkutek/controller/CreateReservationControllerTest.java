@@ -1,6 +1,7 @@
 package com.b2.bookingingorkutek.controller;
 
 
+import com.b2.bookingingorkutek.controller.api.reservation.CreateReservationController;
 import com.b2.bookingingorkutek.dto.ModelUserDto;
 import com.b2.bookingingorkutek.service.AuthorizationService;
 import com.b2.bookingingorkutek.service.JwtService;
@@ -38,7 +39,7 @@ class CreateReservationControllerTest {
     @Test
     void testAccessCreateReservation() throws Exception{
         when(restTemplate.postForEntity(anyString(), any(), any())).thenReturn(new ResponseEntity<>(null, HttpStatusCode.valueOf(200)));
-        mvc.perform(post("/create-reservation/create")
+        mvc.perform(post("/api/v1/frontend/create-reservation/create")
                         .content("{}")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())

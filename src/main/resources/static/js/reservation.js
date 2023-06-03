@@ -2,7 +2,7 @@
 $(document).on('submit', '#create_reservation', function(e){
     e.preventDefault();
     const xhttp = new XMLHttpRequest();
-    xhttp.open("POST", "/create-reservation/create", false);
+    xhttp.open("POST", "/api/v1/frontend/create-reservation/create", false);
     xhttp.setRequestHeader("Content-Type", "application/json");
     xhttp.onload = () => {
         if(xhttp.status === 200){

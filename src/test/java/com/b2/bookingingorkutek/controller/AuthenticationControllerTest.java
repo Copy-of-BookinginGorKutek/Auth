@@ -1,4 +1,5 @@
 package com.b2.bookingingorkutek.controller;
+import com.b2.bookingingorkutek.controller.api.auth.AuthenticationController;
 import com.b2.bookingingorkutek.dto.RegisterRequest;
 import com.b2.bookingingorkutek.model.User;
 import com.b2.bookingingorkutek.service.AuthenticationService;
@@ -61,7 +62,7 @@ class AuthenticationControllerTest {
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
         String requestJson =ow.writeValueAsString(req);
 
-        mvc.perform(post("/auth/register")
+        mvc.perform(post("/api/v1/auth/register")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(requestJson))
                 .andExpect(status().isOk())
@@ -79,7 +80,7 @@ class AuthenticationControllerTest {
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
         String requestJson =ow.writeValueAsString(req);
 
-        mvc.perform(post("/auth/login")
+        mvc.perform(post("/api/v1/auth/login")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(requestJson))
                 .andExpect(status().isOk())

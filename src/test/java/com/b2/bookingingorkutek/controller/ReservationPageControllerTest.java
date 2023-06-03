@@ -1,6 +1,7 @@
 package com.b2.bookingingorkutek.controller;
 
 
+import com.b2.bookingingorkutek.controller.page.reservation.ReservationPageController;
 import com.b2.bookingingorkutek.dto.ModelUserDto;
 import com.b2.bookingingorkutek.model.kupon.Kupon;
 import com.b2.bookingingorkutek.model.reservation.Reservation;
@@ -10,17 +11,12 @@ import com.b2.bookingingorkutek.service.KuponService;
 import com.b2.bookingingorkutek.service.ReservationService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.*;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.web.client.RestTemplate;
 
-import java.net.URI;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;

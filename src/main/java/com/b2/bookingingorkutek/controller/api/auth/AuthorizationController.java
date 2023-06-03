@@ -1,4 +1,4 @@
-package com.b2.bookingingorkutek.controller;
+package com.b2.bookingingorkutek.controller.api.auth;
 
 import com.b2.bookingingorkutek.dto.ModelUserDto;
 import com.b2.bookingingorkutek.service.AuthorizationService;
@@ -11,11 +11,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/authorization")
+@RequestMapping("/api/v1/auth/authorization")
 @CrossOrigin
 public class AuthorizationController {
     private final AuthorizationService authorizationService;
-    @GetMapping("user-checking")
+    @GetMapping("/user-checking")
     public ResponseEntity<ModelUserDto> userChecking(){
         ModelUserDto modelUserDto = authorizationService.createModelUserDto();
         return ResponseEntity.ok(modelUserDto);

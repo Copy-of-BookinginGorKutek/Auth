@@ -138,7 +138,7 @@
     <script th:inline="javascript" type="text/javascript">
         function acceptReservation(id) {
             const xhttp = new XMLHttpRequest();
-            xhttp.open("PUT", "/status/update/" + id, false);
+            xhttp.open("PUT", "/api/v1/frontend/status/update/" + id, false);
             xhttp.setRequestHeader("Content-Type", "application/json");
 
             xhttp.onload = () => {
@@ -163,7 +163,7 @@
 
         function rejectReservation(id) {
             const xhttp = new XMLHttpRequest();
-            xhttp.open("PUT", "/status/update/" + id, false);
+            xhttp.open("PUT", "/api/v1/frontend/status/update/" + id, false);
             xhttp.setRequestHeader("Content-Type", "application/json");
 
             xhttp.onload = () => {

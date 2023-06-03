@@ -74,7 +74,7 @@
 <script>
   function sendOperasionalLapangan(){
     const xhttp = new XMLHttpRequest();
-    xhttp.open("POST", "/operasional-lapangan/create", false);
+    xhttp.open("POST", "/api/v1/frontend/operasional-lapangan/create", false);
     xhttp.setRequestHeader("Content-Type", "application/json");
     xhttp.onload = () => {
       if(xhttp.status === 200){

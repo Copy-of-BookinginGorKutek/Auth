@@ -1,4 +1,4 @@
-package com.b2.bookingingorkutek.controller;
+package com.b2.bookingingorkutek.controller.page.reservation;
 
 import com.b2.bookingingorkutek.dto.ModelUserDto;
 import com.b2.bookingingorkutek.model.kupon.Kupon;
@@ -33,7 +33,7 @@ public class AdminCouponPageController {
         }
 
         CompletableFuture<List<Kupon>> couponListAsync = CompletableFuture.supplyAsync(() -> {
-            String getCouponUrl = "http://34.142.212.224:60/gor/get-all-kupon";
+            String getCouponUrl = "http://34.142.212.224:60/api/v1/gor/get-all-kupon";
             HttpHeaders requestHeaders = new HttpHeaders();
             requestHeaders.setBearerAuth(token);
             requestHeaders.setContentType(MediaType.APPLICATION_JSON);

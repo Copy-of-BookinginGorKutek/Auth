@@ -1,4 +1,4 @@
-package com.b2.bookingingorkutek.controller;
+package com.b2.bookingingorkutek.controller.api.reservation;
 
 import com.b2.bookingingorkutek.dto.OperasionalLapanganRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +12,7 @@ import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
 
 @RestController
-@RequestMapping("/operasional-lapangan")
+@RequestMapping("/api/v1/frontend/operasional-lapangan")
 public class OperasionalLapanganController {
     @Autowired
     RestTemplate restTemplate;
@@ -25,7 +25,7 @@ public class OperasionalLapanganController {
         requestHeaders.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<OperasionalLapanganRequest> http = new HttpEntity<>(operasionalLapanganRequest, requestHeaders);
         try{
-            return restTemplate.postForEntity("http://34.142.212.224:60/gor/close-lapangan", http, Object.class);
+            return restTemplate.postForEntity("http://34.142.212.224:60/api/v1/gor/close-lapangan", http, Object.class);
         }catch(HttpServerErrorException | HttpClientErrorException e){
             e.printStackTrace();
             return ResponseEntity.status(e.getStatusCode()).body(e.getResponseBodyAsString());

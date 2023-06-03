@@ -77,7 +77,7 @@
         var id = [[${id}]];
         console.log(linkPaymentProof);
         console.log(id);
-        xhttp.open("POST", `/pay/${id}`, false);
+        xhttp.open("POST", `/api/v1/frontend/pay/${id}`, false);
         xhttp.setRequestHeader("Content-Type", "application/json");
         xhttp.onload = () => {
             if(xhttp.status === 200){

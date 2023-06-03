@@ -1,18 +1,16 @@
 package com.b2.bookingingorkutek.controller;
 
+import com.b2.bookingingorkutek.controller.api.notification.UserNotificationController;
 import com.b2.bookingingorkutek.model.notification.Notification;
 import com.b2.bookingingorkutek.service.JwtService;
 import com.b2.bookingingorkutek.service.UserNotificationService;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +42,7 @@ class UserNotificationControllerTest {
                 .timestamp(LocalDateTime.of(2023, 4,30,12, 12, 12))
                 .build());
         when(userNotificationService.getSelf(anyString(), anyString())).thenReturn(notificationList);
-        mvc.perform(get("/user-notification/get/user@test.com"))
+        mvc.perform(get("/api/v1/frontend/user-notification/get/user@test.com"))
                 .andExpect(handler().methodName("getSelfNotification"))
                 .andExpect(status().is2xxSuccessful())
                 .andExpect(content().json("[{\"emailUser\": \"user@test.com\", \"id\": 1, \"timestamp\": \"2023-04-30T12:12:12\"}]"));
@@ -52,7 +50,7 @@ class UserNotificationControllerTest {
     @Test
     void testAccessingDeleteNotificationMethod() throws Exception{
         when(userNotificationService.getSelf(anyString(), anyString())).thenReturn(new ArrayList<>());
-        mvc.perform(delete("/user-notification/delete/1"))
+        mvc.perform(delete("/api/v1/frontend/user-notification/delete/1"))
                 .andExpect(handler().methodName("deleteNotification"))
                 .andExpect(status().is2xxSuccessful())
                 .andExpect(content().string("\"Deleted notification\""));
