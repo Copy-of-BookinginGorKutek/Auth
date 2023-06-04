@@ -31,8 +31,7 @@ public class HomePageController {
     OperasionalLapanganService operasionalLapanganService;
     @Autowired
     ReservationService reservationService;
-    @Autowired
-    RestTemplate restTemplate;
+
     @GetMapping("/")
     @CrossOrigin
     public String homePage(@CookieValue(name = "token", defaultValue = "") String token, Model model) throws ExecutionException, InterruptedException {

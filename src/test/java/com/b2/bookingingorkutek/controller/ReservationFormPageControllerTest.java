@@ -1,7 +1,7 @@
 package com.b2.bookingingorkutek.controller;
 
 
-import com.b2.bookingingorkutek.controller.page.reservation.ReservationPageController;
+import com.b2.bookingingorkutek.controller.page.reservation.ReservationFormPageController;
 import com.b2.bookingingorkutek.dto.ModelUserDto;
 import com.b2.bookingingorkutek.model.kupon.Kupon;
 import com.b2.bookingingorkutek.model.reservation.Reservation;
@@ -26,9 +26,9 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@WebMvcTest(controllers = ReservationPageController.class)
+@WebMvcTest(controllers = ReservationFormPageController.class)
 @AutoConfigureMockMvc(addFilters = false)
-class ReservationPageControllerTest {
+class ReservationFormPageControllerTest {
     @Autowired
     private MockMvc mvc;
     @MockBean

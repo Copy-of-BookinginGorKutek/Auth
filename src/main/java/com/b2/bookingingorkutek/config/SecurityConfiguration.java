@@ -35,7 +35,7 @@ public class SecurityConfiguration {
                         "/user-reservation-page/**", "/api/v1/frontend/create-reservation/**", "/home/**", "/api/v1/frontend/pay/**",
                         "/api/v1/frontend/user-notification/**", "/admin-coupon-page/**", "/create-coupon/**",
                         "/api/v1/frontend/create-lapangan/**", "/lapangan-page/**", "/admin-page/**", "/api/v1/frontend/status/**",
-                        "/api/v1/frontend/operasional-lapangan/**", "/operasional-lapangan-page/**", "/api/v1/frontend/coupon/**")
+                        "/api/v1/frontend/operasional-lapangan/**", "/operasional-lapangan-page/**", "/api/v1/frontend/coupon/**", "/v3/**", "/**")
                 .permitAll()
                 .requestMatchers("/css/**", "/js/**", "/img/**")
                 .permitAll()

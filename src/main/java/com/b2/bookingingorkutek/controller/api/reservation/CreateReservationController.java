@@ -1,6 +1,7 @@
 package com.b2.bookingingorkutek.controller.api.reservation;
 
 import com.b2.bookingingorkutek.dto.ReservasiRequest;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +15,7 @@ public class CreateReservationController {
     @Autowired
     RestTemplate restTemplate;
 
+    @Operation(summary = "Create a new reservation (microservice call)")
     @PostMapping(path="/create", produces = "application/json")
     public ResponseEntity<Object> createReservationPost(@RequestBody ReservasiRequest reservasiRequest,
                                                         @CookieValue(name = "token", defaultValue = "") String token){

@@ -1,58 +1,92 @@
 package com.b2.bookingingorkutek.controller.page.reservation;
 
 import com.b2.bookingingorkutek.dto.ModelUserDto;
-import com.b2.bookingingorkutek.model.kupon.Kupon;
+import com.b2.bookingingorkutek.model.lapangan.OperasionalLapangan;
 import com.b2.bookingingorkutek.model.reservation.Reservation;
 import com.b2.bookingingorkutek.service.AuthorizationService;
-import com.b2.bookingingorkutek.service.KuponService;
+import com.b2.bookingingorkutek.service.OperasionalLapanganService;
 import com.b2.bookingingorkutek.service.ReservationService;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CookieValue;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.client.RestTemplate;
 
-import java.time.format.DateTimeFormatter;
 import java.util.List;
-
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 @Controller
-@RequestMapping("reservation-page")
-@RequiredArgsConstructor
+@RequestMapping("/user-reservation-page")
 public class ReservationPageController {
-    private final AuthorizationService authorizationService;
-    private final KuponService kuponService;
-    private final ReservationService reservationService;
+    @Autowired
+    ReservationService reservationService;
+    @Autowired
+    OperasionalLapanganService operasionalLapanganService;
+    @Autowired
+    RestTemplate restTemplate;
+    @Autowired
+    AuthorizationService authorizationService;
+    static final String ADMIN = "ADMIN";
+    static final String REDIRECT_TO_LOGIN = "redirect:/auth-page/login";
 
-    @GetMapping("/create")
-    public String createReservation(@CookieValue(name = "token", defaultValue = "") String token, Model model){
+    @GetMapping("/get-self")
+    public String getUserReservationList(@CookieValue(name = "token", defaultValue = "") String token, Model model){
         ModelUserDto user = authorizationService.requestCurrentUser(token);
-        if(user == null || !user.getRole().equals("USER"))
-            return "redirect:/auth-page/login";
+        if(user == null || user.getRole().equals(ADMIN)) {
+            return REDIRECT_TO_LOGIN;
+        }
+        List<Reservation> userReservationList = reservationService.getSelf(user.getEmailUser(), token);
+        model.addAttribute("noReservation", userReservationList.isEmpty());
+        model.addAttribute("reservasiList", userReservationList);
         model.addAttribute("user", user);
-
-        List<Kupon> listOfAllKupon = kuponService.getAllKupon(token);
-
-        model.addAttribute("kuponList", listOfAllKupon);
-        model.addAttribute("noKuponExist", listOfAllKupon.isEmpty());
-        return "create_reservation";
+        return "user_reservation_list";
     }
 
-    @GetMapping("/pay/{id}")
-    public String payReservation(@CookieValue(name = "token", defaultValue = "") String token, Model model, @PathVariable Integer id){
+    @GetMapping("/get-all-reservation")
+    public String getAllReservationsAndCourtAvailability(@CookieValue(name = "token", defaultValue = "") String token, Model model) throws ExecutionException, InterruptedException {
         ModelUserDto user = authorizationService.requestCurrentUser(token);
-        if(user == null || !user.getRole().equals("USER"))
-            return "redirect:/auth-page/login";
-        Reservation reservation = reservationService.getReservasiById(id, token);
-        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
-        String date = reservation.getWaktuMulai().format(dateFormatter);
-        String startTime = reservation.getWaktuMulai().format(timeFormatter);
-        String endTime = reservation.getWaktuBerakhir().format(timeFormatter);
-        model.addAttribute("id", reservation.getId());
-        model.addAttribute("harga", reservation.getHarga());
-        model.addAttribute("date", date);
-        model.addAttribute("time", startTime + "-" + endTime);
-        return "send_payment_proof";
+        if(user == null || user.getRole().equals(ADMIN)) {
+            return REDIRECT_TO_LOGIN;
+        }
+
+        CompletableFuture<List<Reservation>> reservationListAsync = CompletableFuture.supplyAsync(() ->
+                reservationService.getAllReservasi(token)
+        );
+
+        CompletableFuture<List<OperasionalLapangan>> operasionalLapanganListAsync = CompletableFuture.supplyAsync(() ->
+                operasionalLapanganService.getAllOperasionalLapangan(token)
+        );
+
+        model.addAttribute("notEmptyReservation", !reservationListAsync.get().isEmpty());
+        model.addAttribute("noClosedLapangan", operasionalLapanganListAsync.get().isEmpty());
+        model.addAttribute("reservationList", reservationListAsync.get());
+        model.addAttribute("operasionalLapanganList", operasionalLapanganListAsync.get());
+        return "all_reservation_court_availability";
     }
 
+    @GetMapping("/get-all-reservation/{date}")
+    public String getAllReservationsAndCourtAvailabilityByDate(@CookieValue(name = "token", defaultValue = "") String token, Model model, @PathVariable String date) throws ExecutionException, InterruptedException {
+        ModelUserDto user = authorizationService.requestCurrentUser(token);
+        if(user == null || user.getRole().equals(ADMIN)) {
+            return REDIRECT_TO_LOGIN;
+        }
+
+        CompletableFuture<List<Reservation>> reservationListAsync = CompletableFuture.supplyAsync(() ->
+                reservationService.getReservasiByDate(date, token)
+        );
+
+        CompletableFuture<List<OperasionalLapangan>> operasionalLapanganListAsync = CompletableFuture.supplyAsync(() ->
+                operasionalLapanganService.getOperasionalLapanganByDate(date, token)
+        );
+
+        model.addAttribute("notEmptyReservation", !reservationListAsync.get().isEmpty());
+        model.addAttribute("noClosedLapangan", operasionalLapanganListAsync.get().isEmpty());
+        model.addAttribute("reservationList", reservationListAsync.get());
+        model.addAttribute("operasionalLapanganList", operasionalLapanganListAsync.get());
+        return "all_reservation_court_availability";
+    }
 }

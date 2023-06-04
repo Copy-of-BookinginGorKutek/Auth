@@ -1,4 +1,5 @@
 package com.b2.bookingingorkutek.controller.api.reservation;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +12,7 @@ import org.springframework.web.client.RestTemplate;
 public class CreateLapanganController {
     @Autowired
     RestTemplate restTemplate;
+    @Operation(summary = "Create a new court (microservice call)")
     @PostMapping(path="/create", produces = "application/json")
     public ResponseEntity<Object> createLapanganPost(@CookieValue(name = "token", defaultValue = "") String token){
         HttpHeaders requestHeaders = new HttpHeaders();

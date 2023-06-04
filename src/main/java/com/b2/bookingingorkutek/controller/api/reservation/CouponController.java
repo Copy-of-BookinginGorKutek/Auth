@@ -2,6 +2,7 @@ package com.b2.bookingingorkutek.controller.api.reservation;
 
 import com.b2.bookingingorkutek.dto.KuponRequest;
 import com.b2.bookingingorkutek.service.KuponService;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +19,7 @@ public class CouponController {
     @Autowired
     KuponService kuponService;
 
+    @Operation(summary = "Create new coupon (microservice call)")
     @PostMapping(path="/create", produces = "application/json")
     public ResponseEntity<Object> createCouponPost(@RequestBody KuponRequest kuponRequest,
                                                         @CookieValue(name = "token", defaultValue = "") String token){
@@ -33,6 +35,7 @@ public class CouponController {
         }
     }
 
+    @Operation(summary = "Delete existing coupon by ID (microservice call)")
     @DeleteMapping(path="/delete/{id}")
     public ResponseEntity<Object> deleteCouponPost(@PathVariable Integer id,
                                                    @CookieValue(name = "token", defaultValue = "") String token){
