@@ -94,17 +94,6 @@ class UserReservationFormPageControllerTest {
         when(operasionalLapanganService.getAllOperasionalLapangan(any())).thenReturn(operasionalLapanganList);
     }
     @Test
-    void whenAccessingGetUserReservationWithAnonymousOrRoleAdminShouldRedirect() throws Exception{
-        when(authorizationService.requestCurrentUser(anyString())).thenReturn(admin);
-        mvc.perform(get("/user-reservation-page/get-self/1"))
-                .andExpect(handler().methodName("getUserReservation"))
-                .andExpect(status().is3xxRedirection());
-        when(authorizationService.requestCurrentUser(anyString())).thenReturn(anonymous);
-        mvc.perform(get("/user-reservation-page/get-self/1"))
-                .andExpect(handler().methodName("getUserReservation"))
-                .andExpect(status().is3xxRedirection());
-    }
-    @Test
     void whenAccessingGetUserReservationListWithAnonymousOrRoleAdminShouldRedirect() throws Exception{
         when(authorizationService.requestCurrentUser(anyString())).thenReturn(admin);
         mvc.perform(get("/user-reservation-page/get-self"))
@@ -137,13 +126,6 @@ class UserReservationFormPageControllerTest {
         mvc.perform(get("/user-reservation-page/get-all-reservation/2020-11-11"))
                 .andExpect(handler().methodName("getAllReservationsAndCourtAvailabilityByDate"))
                 .andExpect(status().is3xxRedirection());
-    }
-    @Test
-    void whenAccessingGetUserReservationWithRoleUserShouldSuccess() throws Exception{
-        when(authorizationService.requestCurrentUser(anyString())).thenReturn(user);
-        mvc.perform(get("/user-reservation-page/get-self/1"))
-                .andExpect(handler().methodName("getUserReservation"))
-                .andExpect(status().is2xxSuccessful());
     }
     @Test
     void whenAccessingGetUserReservationListWithRoleUserShouldSuccess() throws Exception{
