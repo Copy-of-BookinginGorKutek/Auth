@@ -28,12 +28,18 @@
     .card-body {
       padding: 10px;
     }
-
     .card-text {
       font-size: 16px;
     }
     h1{
       margin-bottom: 30px;
+    }
+    .sticky-footer {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      height: 50px;
+      background-color: white;
     }
   </style>
 </head>
@@ -107,9 +113,9 @@
   </div>
 </div>
 <br>
-<div class="footer text-center p-3" style="background-color: white;">
+<footer class="footer text-center p-3 sticky-footer" style="background-color: white;">
   <div class="p">© 2023 <strong>BookinginGORKutek</strong> by <strong>Kelompok B2</strong>✨</div>
-</div>
+</footer>
 <script>
   function deleteCoupon(index){
     var url = "http://34.142.212.224:100/api/v1/frontend/coupon/delete/" + index;
