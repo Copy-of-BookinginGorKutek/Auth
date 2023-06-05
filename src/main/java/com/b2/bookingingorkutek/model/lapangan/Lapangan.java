@@ -1,10 +1,6 @@
 package com.b2.bookingingorkutek.model.lapangan;
 
-import jakarta.persistence.*;
 import lombok.*;
-
-import java.time.Duration;
-import java.time.LocalDateTime;
 
 @Data
 @Builder
