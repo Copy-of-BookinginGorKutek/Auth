@@ -1,4 +1,4 @@
-package com.b2.bookingingorkutek.controller;
+package com.b2.bookingingorkutek.controller.api;
 import com.b2.bookingingorkutek.controller.api.auth.AuthenticationController;
 import com.b2.bookingingorkutek.dto.RegisterRequest;
 import com.b2.bookingingorkutek.model.User;

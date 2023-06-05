@@ -1,4 +1,4 @@
-package com.b2.bookingingorkutek.controller;
+package com.b2.bookingingorkutek.controller.api;
 
 import com.b2.bookingingorkutek.controller.api.reservation.PaymentProofController;
 import com.b2.bookingingorkutek.dto.PaymentProofRequest;

@@ -3,6 +3,7 @@ package com.b2.bookingingorkutek.controller.api;
 import com.b2.bookingingorkutek.model.User;
 import com.b2.bookingingorkutek.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
+import lombok.Generated;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +15,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/user")
 @RequiredArgsConstructor
+@Generated
 public class UserController {
     private final UserService userService;
 

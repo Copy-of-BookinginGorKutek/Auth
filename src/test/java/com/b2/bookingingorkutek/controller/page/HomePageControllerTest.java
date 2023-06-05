@@ -1,4 +1,4 @@
-package com.b2.bookingingorkutek.controller;
+package com.b2.bookingingorkutek.controller.page;
 
 import com.b2.bookingingorkutek.controller.page.reservation.HomePageController;
 import com.b2.bookingingorkutek.dto.ModelUserDto;

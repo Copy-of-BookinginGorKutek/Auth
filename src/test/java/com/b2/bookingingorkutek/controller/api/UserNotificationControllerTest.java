@@ -1,4 +1,4 @@
-package com.b2.bookingingorkutek.controller;
+package com.b2.bookingingorkutek.controller.api;
 
 import com.b2.bookingingorkutek.controller.api.notification.UserNotificationController;
 import com.b2.bookingingorkutek.model.notification.Notification;
