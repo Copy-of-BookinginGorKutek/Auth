@@ -1,9 +1,11 @@
 package com.b2.bookingingorkutek.service;
 
+import com.b2.bookingingorkutek.controller.api.auth.AuthenticationController;
 import com.b2.bookingingorkutek.dto.AuthenticationRequest;
 import com.b2.bookingingorkutek.dto.AuthenticationResponse;
 import com.b2.bookingingorkutek.dto.RegisterRequest;
 import com.b2.bookingingorkutek.exceptions.UserAlreadyExistException;
+import com.b2.bookingingorkutek.model.User;
 import com.b2.bookingingorkutek.repository.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -17,26 +19,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
-@ExtendWith(MockitoExtension.class)
 class AuthenticationServiceImplTest {
 
     @Autowired
-    private ApplicationContext applicationContext;
-    @Mock
+    private AuthenticationService authenticationService;
+    @Autowired
     private UserRepository userRepository;
-    @Mock
-    private PasswordEncoder passwordEncoder;
-
-    @Mock
-    private JwtService jwtService;
-
-    @Mock
-    private AuthenticationManager authenticationManager;
-
-    @Mock
-    AuthenticationService authenticationService;// =
-//     //       new AuthenticationService(userRepository, passwordEncoder, jwtService, authenticationManager);
-
     @Test
     void testAuthServiceRegisterShouldAddToRepository() throws Exception {
         RegisterRequest request =
@@ -56,7 +44,6 @@ class AuthenticationServiceImplTest {
     void testAuthServiceRegisterTwiceShouldThrowsError() throws Exception {
         RegisterRequest request =
                 new RegisterRequest("aaa", "bbb", "test1@email.com", "abab", "admin");
-        AuthenticationService authenticationService = (AuthenticationService) applicationContext.getBean("authenticationService");
         authenticationService.register(request);
         assertThrows(UserAlreadyExistException.class, () -> authenticationService.register(request));
     }
@@ -65,7 +52,6 @@ class AuthenticationServiceImplTest {
     void testAuthenticateMethod() throws Exception {
         RegisterRequest request =
                 new RegisterRequest("aaa", "bbb", "test2@email.com", "abab", "admin");
-        AuthenticationService authenticationService = (AuthenticationService) applicationContext.getBean("authenticationService");
         authenticationService.register(request);
         AuthenticationRequest req = new AuthenticationRequest("test2@email.com", "abab");
         AuthenticationResponse secRes = authenticationService.authenticate(req);
