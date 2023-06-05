@@ -2,7 +2,7 @@
 $(document).on('submit', '#loginForm', function(e) {
     e.preventDefault();
     const xhttp = new XMLHttpRequest();
-    xhttp.open("POST", "/auth/login", false);
+    xhttp.open("POST", "/api/v1/auth/login", false);
     xhttp.setRequestHeader("Content-Type", "application/json");
 
     xhttp.onload = () => {
@@ -14,7 +14,7 @@ $(document).on('submit', '#loginForm', function(e) {
             if (response.role == "USER") {
                 window.location.replace("/home/");
             } else {
-                console.log("replace ini dgn routing ke dashboard")
+                window.location.replace("/admin-page/dashboard");
             }
         }
     }
@@ -29,7 +29,7 @@ $(document).on('submit', '#loginForm', function(e) {
 $(document).on('submit', '#registerForm', function(e) {
     e.preventDefault();
     const xhttp = new XMLHttpRequest();
-    xhttp.open("POST", "/auth/register", false);
+    xhttp.open("POST", "/api/v1/auth/register", false);
     xhttp.setRequestHeader("Content-Type", "application/json");
 
     xhttp.onload = () => {

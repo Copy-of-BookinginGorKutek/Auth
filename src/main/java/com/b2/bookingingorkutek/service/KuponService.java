@@ -18,7 +18,7 @@ public class KuponService {
     RestTemplate restTemplate;
 
     public List<Kupon> getAllKupon(String token){
-        String getAllKuponUrl = "http://34.142.212.224:60/gor/get-all-kupon";
+        String getAllKuponUrl = "http://34.142.212.224:60/api/v1/gor/get-all-kupon";
         HttpHeaders requestHeaders = getJSONHttpHeaders(token);
         HttpEntity<Object> http = new HttpEntity<>(requestHeaders);
 
@@ -30,6 +30,17 @@ public class KuponService {
             listOfAllKupon = Arrays.asList(arrayOfAllKupon);
         }
         return listOfAllKupon;
+    }
+
+    public void deleteCoupon(Integer id, String token){
+        HttpHeaders requestHeaders = getJSONHttpHeaders(token);
+        HttpEntity<Object> httpEntity = new HttpEntity<>(requestHeaders);
+        String url = "http://34.142.212.224:60/api/v1/gor/delete-kupon/" + id;
+        try {
+            restTemplate.exchange(url, HttpMethod.DELETE, httpEntity, String.class);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     private HttpHeaders getJSONHttpHeaders(String token){

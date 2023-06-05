@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+  <link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
+  <title>Dashboard Admin</title>
+  <style>
+    .sticky-footer {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      height: 50px;
+      background-color: white;
+    }
+  </style>
+</head>
+<body style="background-color: #F6F1F1;">
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: white;">
+  <a class="navbar-brand" href="#">
+    <img th:src="@{/img/logo.png}" width="50" height="50" alt="">
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="/admin-page/dashboard">Home</a>
+      </li>
+      <li class="nav-item dropdown active">
+        <a class="nav-link dropdown-toggle" href="#" id="courtDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Court
+        </a>
+        <div class="dropdown-menu" aria-labelledby="courtDropdown">
+          <a class="dropdown-item" href="/lapangan-page/create">Add Court</a>
+          <a class="dropdown-item" href="/operasional-lapangan-page/create">Close Court</a>
+          <a class="dropdown-item" href="/operasional-lapangan-page/closed/all">Closed Court</a>
+        </div>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="couponDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Coupon
+        </a>
+        <div class="dropdown-menu" aria-labelledby="couponDropdown">
+          <a class="dropdown-item" href="/admin-coupon-page/get-all-coupon">List of Coupons</a>
+          <a class="dropdown-item" href="/admin-coupon-page/create">Create Coupon</a>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div class="nb">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a href="/logout" type="button" class="btn btn-outline-danger my-2" id="logout">Log Out</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+<div class="container p-5 h-100">
+  <div class="row d-flex justify-content-center align-items-center h-100">
+    <div class="col-xl-12">
+      <div class="card bg-white text-dark shadow-lg border-1">
+        <div class="card-body p-5 text-center">
+          <div class = "dashboard">
+            <div class="h4 mb-4">Dashboard Admin</div>
+            <div class="container">
+              <h2 class="mb-2">All Closed Court</h2>
+              <div th:if="${operasionalLapanganNotEmpty}">
+                <table class="table mx-auto" style="max-width: content-box">
+                  <thead class="table-dark">
+                  <tr>
+                    <th scope="col">Operational ID</th>
+                    <th scope="col">Court ID</th>
+                    <th scope="col">Closed Date</th>
+                  </tr>
+                  </thead>
+                  <tr th:each="operasionalLapangan: ${operasionalLapanganList}">
+                    <td th:text="${operasionalLapangan.getId()}"></td>
+                    <td th:text="${operasionalLapangan.getIdLapangan()}"></td>
+                    <td th:text="${#dates.format(operasionalLapangan.getTanggalLibur(), 'dd-MM-yyyy')}"></td>
+                  </tr>
+                </table>
+              </div>
+              <div th:unless="${operasionalLapanganNotEmpty}">
+                <div class="text-center">No Closed Court</div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<footer class="footer text-center p-3 sticky-footer" style="background-color: white;">
+  <div class="p">© 2023 <strong>BookinginGORKutek</strong> by <strong>Kelompok B2</strong>✨</div>
+</footer>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.min.js" integrity="sha384-heAjqF+bCxXpCWLa6Zhcp4fu20XoNIA98ecBC1YkdXhszjoejr5y9Q77hIrv8R9i" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+<script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+</body>
+</html>
